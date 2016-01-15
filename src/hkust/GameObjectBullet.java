@@ -7,12 +7,13 @@ public class GameObjectBullet extends GameObject {
 	private Vector velocity;
 	private long timer, life;
 	
-	public GameObjectBullet(Vector pos, Vector vel) {
+	public GameObjectBullet(Vector pos, Vector vel, double randomness) {
 		setPos(pos);
 		velocity = vel;
 		life = 1000;
 		timer = System.currentTimeMillis() + life;
-		setAngle(vel.getAngle());
+		setAngle(vel.getAngle() + (Math.random() * randomness) - randomness *0.5D);
+		velocity = Vector.createFromAngle(getAngle(), vel.getLength());
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class GameObjectBullet extends GameObject {
 	@Override
 	public void render(double framestep) {
 		R.noStroke();
-		R.fill(255, 255*(timer - System.currentTimeMillis())/life, 0);
+		R.fill(255, 55 + 200*(timer - System.currentTimeMillis())/life, 0);
 		R.pushMatrix();
 		{
 			R.translate(getXF(), getYF());

@@ -34,6 +34,8 @@ public class GameObjectPlayer extends GameObject {
 		
 		if(isShooting)
 			motion.scalar(0.7D);
+		
+		
 	}
 
 	@Override

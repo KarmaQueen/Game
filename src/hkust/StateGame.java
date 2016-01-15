@@ -28,7 +28,8 @@ public class StateGame extends State{
 				gameobjects.add(
 					new GameObjectBullet(
 							player.getPos().add(Vector.createFromAngle(player.getAngle(), 5)), //spawn point
-									Vector.createFromAngle(player.getAngle(), 15))); //last param is speed of bullet
+									Vector.createFromAngle(player.getAngle(), 15),
+									!player.isMoving()? 8D * MathHelper.toRad : 0)); //last param is speed of bullet
 				shootTimer = System.currentTimeMillis() + 100;
 			}
 		}

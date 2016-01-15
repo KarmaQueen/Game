@@ -11,7 +11,7 @@ public abstract class GameObject {
 	protected Vector pos, pPos, motion; 
 	
 	protected double angle, motionMult;
-	private boolean isDead;
+	private boolean isDead, isMoving;
 
 	public GameObject(){
 		this(0, 0, 0);
@@ -42,7 +42,10 @@ public abstract class GameObject {
 		pos.setVec(pos.add(motion));
 		//motion.setVec(Math.max(0, motion.getX() - motionMult), Math.max(0, motion.getY() - motionMult));
 		motion.scalar(motionMult);
-		if(motion.getLengthSq() <= 0.00001D) motion.setVec(0, 0);
+		if(motion.getLengthSq() <= 0.00001D){
+			motion.setVec(0, 0);
+			isMoving = true;
+		} else isMoving = false;
 		
 		pPos.setVec(pos);
 	}
@@ -100,5 +103,8 @@ public abstract class GameObject {
 	}
 	public Vector getMotion() {
 		return motion;
+	}
+	public boolean isMoving() {
+		return isMoving;
 	}
 }
