@@ -11,6 +11,7 @@ public class Main extends PApplet{
 	public static int WIDTH, HEIGHT;
 	
 	public static final double MS_PER_UPDATE = 7;
+	
 	private static double previous = System.currentTimeMillis();
 	private static double lag = 0.0;
 	private State currentState;
@@ -26,17 +27,18 @@ public class Main extends PApplet{
 		
 		PApplet.main(new String[] {"hkust.Main"});
 	}
-
+	@Override
 	public void settings(){
 		size(WIDTH, HEIGHT);
 	}
+	@Override
 	public void setup(){
 		smooth();
 		changeState(new StateGame());
 		GameObject.R = this;
 		initInputs();
 	}
-
+	@Override
 	public void draw(){
 		double current = System.currentTimeMillis();
 		double elapsed = current - previous;
@@ -47,7 +49,6 @@ public class Main extends PApplet{
 			update();
 			lag -= MS_PER_UPDATE;
 		}
-		
 		render(lag/MS_PER_UPDATE);
 	}
 	
