@@ -5,7 +5,8 @@ import processing.core.PConstants;
 public class GameObjectPlayer extends GameObject {
 	
 	private boolean isShooting;
-
+	
+	@Override
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
 		isShooting = false;
