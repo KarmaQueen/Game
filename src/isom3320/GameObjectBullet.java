@@ -1,4 +1,4 @@
-package hkust;
+package isom3320;
 
 import processing.core.PConstants;
 
@@ -6,8 +6,9 @@ public class GameObjectBullet extends GameObject {
 	
 	private Vector velocity;
 	private long timer, life;
+	private double damage;
 	
-	public GameObjectBullet(Vector pos, Vector vel, double randomness) {
+	public GameObjectBullet(Vector pos, Vector vel, double randomness, double damage) {
 		setPos(pos);
 		velocity = vel;
 		life = 1000;
@@ -30,7 +31,8 @@ public class GameObjectBullet extends GameObject {
 		R.fill(255, 55 + 200*(timer - System.currentTimeMillis())/life, 0);
 		R.pushMatrix();
 		{
-			R.translate(getXF(), getYF());
+			Vector partialPos = getPartialPos(framestep);
+			R.translate(partialPos.getXF(), partialPos.getYF());
 			R.rotate((float)angle);
 			R.rectMode(PConstants.CENTER);
 			R.rect(0, 0, 10, 2);

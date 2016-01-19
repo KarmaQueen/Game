@@ -1,4 +1,4 @@
-package hkust;
+package isom3320;
 
 public class Vector {
 
@@ -63,6 +63,9 @@ public class Vector {
 	}
 	public Vector add(Vector v){
 		return create(xCoord + v.xCoord, yCoord + v.yCoord);
+	}
+	public Vector add(double x, double y){
+		return create(xCoord + x, yCoord + y);
 	}
 	public Vector sub(Vector v){
 		return create(xCoord - v.xCoord, yCoord - v.yCoord);

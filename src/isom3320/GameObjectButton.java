@@ -1,4 +1,4 @@
-package hkust;
+package isom3320;
 
 public class GameObjectButton extends GameObject {
 	

@@ -1,16 +1,19 @@
-package hkust;
+package isom3320;
 
 import processing.core.PConstants;
+
 
 public class GameObjectPlayer extends GameObject {
 	
 	private boolean isShooting;
-	
+	private GameObjectGun gun;
+
 	@Override
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
 		isShooting = false;
-		motionMult = 0.9D; 
+		motionMult = 0.8D; 
+		gun = new GameObjectGun("ak47");
 	}
 	
 	@Override
@@ -26,21 +29,22 @@ public class GameObjectPlayer extends GameObject {
 		//faces the mouse
 		setAngle((float)(
 				Vector.create(R.mouseX, R.mouseY)
-				.sub(getPos())
+				//.sub(getPos())
+				.sub(Vector.create(Main.WIDTH/2, Main.HEIGHT/2))
 				.getAngle()
 				));
 		
 		isShooting = R.mousePressed;
 		
-		if(isShooting)
-			motion.scalar(0.7D);
-		
+		if(isShooting && !gun.getName().equals("awp"))
+			motion.scalar(0.8D);
 		
 	}
 
 	@Override
 	public void render(double framestep) {
 		// TODO Auto-generated method stub
+		gun.render(framestep);
 		R.noStroke();
 		R.fill(100, 0, 255);
 		R.pushMatrix();
@@ -56,4 +60,13 @@ public class GameObjectPlayer extends GameObject {
 	public boolean isShooting() {
 		return isShooting;
 	}
+	
+	public GameObjectGun getGun() {
+		return gun;
+	}
+
+	public void setGun(GameObjectGun gun) {
+		this.gun = gun;
+	}
+	
 }

@@ -1,10 +1,16 @@
-package hkust;
+package isom3320;
 
 import processing.core.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
+import ddf.minim.Minim;
 
 public class Main extends PApplet{
 
@@ -16,21 +22,24 @@ public class Main extends PApplet{
 	private static double lag = 0.0;
 	private State currentState;
 	
-	public static Map<Character, Boolean> inputs; 
+	public static Map<Character, Boolean> inputs;
+	public Minim minim;
 	
 	public static Random rand;
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		WIDTH = 1600;
 		HEIGHT = 900;
 		rand = new Random();
 		
-		PApplet.main(new String[] {"hkust.Main"});
+		PApplet.main(new String[] {"isom3320.Main"});
 	}
+	
 	@Override
 	public void settings(){
 		size(WIDTH, HEIGHT);
 	}
+	
 	@Override
 	public void setup(){
 		smooth();
@@ -38,6 +47,7 @@ public class Main extends PApplet{
 		GameObject.R = this;
 		initInputs();
 	}
+	
 	@Override
 	public void draw(){
 		double current = System.currentTimeMillis();
@@ -104,4 +114,22 @@ public class Main extends PApplet{
 	public static boolean isPressed(char c){
 		return inputs.get(c) || inputs.get(Character.toUpperCase(c));
 	}
+	
+	public static synchronized void playSound(final String url) {
+		  new Thread(new Runnable() {
+		  // The wrapper thread is unnecessary, unless it blocks on the
+		  // Clip finishing; see comments.
+		    public void run() {
+		      try {
+		        Clip clip = AudioSystem.getClip();
+		        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+		          Main.class.getResourceAsStream("/res/" + url));
+		        clip.open(inputStream);
+		        clip.start();
+		      } catch (Exception e) {
+		        System.err.println(e.getMessage());
+		      }
+		    }
+		  }).start();
+		}
 }
