@@ -7,11 +7,13 @@ package isom3320;
 public abstract class GameObject {
 	
 	public static Main R;
+	public static StateGame state;
 	
 	protected Vector pos, pPos, motion; 
 	
 	protected double angle, motionMult;
 	private boolean isDead, isMoving;
+	protected Color color;
 
 	public GameObject(){
 		this(0, 0, 0);
@@ -32,6 +34,7 @@ public abstract class GameObject {
 		isDead = false;
 		motion = Vector.ZERO.clone();
 		motionMult = 0.95D;
+		color = Color.create(255, 255, 255);
 		init();
 	}
 	
@@ -86,6 +89,10 @@ public abstract class GameObject {
 	}
 	public void setAngle(double angle) {
 		this.angle = angle;
+	}
+	protected void setColorAsFill(){
+		int[] arr = color.getColorArr();
+		R.fill(arr[0], arr[1], arr[2]);
 	}
 	
 	//Getters

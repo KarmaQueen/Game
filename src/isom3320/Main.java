@@ -120,7 +120,7 @@ public class Main extends PApplet{
 		      try {
 		        Clip clip = AudioSystem.getClip();
 		        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-		          Main.class.getResourceAsStream("/res/" + url));
+		          Main.class.getResourceAsStream("/res/" + url + ".wav"));
 		        clip.open(inputStream);
 		        clip.start();
 		      } catch (Exception e) {
