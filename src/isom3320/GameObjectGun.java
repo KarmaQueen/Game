@@ -2,7 +2,7 @@ package isom3320;
 
 public class GameObjectGun extends GameObject {
 	
-	private String[] name =     new String[]{"ak47",  "awp", "m4a1"};
+	private String[] name =     new String[]{"ak47",  "awp", "m4a1s"};
 	private double[] damage =   new double[]{    30,    100,     30};
 	private long[] delayPerShot = new long[]{   100,   1500,    100};
 	

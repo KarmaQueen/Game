@@ -1,7 +1,6 @@
 package isom3320;
 
 import java.util.ArrayList;
-import ddf.minim.*;
 
 public class StateGame extends State{
 	
@@ -17,7 +16,7 @@ public class StateGame extends State{
 		shootTimer = 0;
 		randIncreaser = 4;
 		map = new GameMap(null); //TODO: later change null to something else
-		player.setGun(new GameObjectGun("awp"));
+		player.setGun(new GameObjectGun("m4a1s"));
 	}
 
 	@Override

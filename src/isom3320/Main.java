@@ -10,8 +10,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import ddf.minim.Minim;
-
 public class Main extends PApplet{
 
 	public static int WIDTH, HEIGHT;
@@ -23,7 +21,6 @@ public class Main extends PApplet{
 	private State currentState;
 	
 	public static Map<Character, Boolean> inputs;
-	public Minim minim;
 	
 	public static Random rand;
 	
