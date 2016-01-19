@@ -5,6 +5,7 @@ public class GameObjectGun extends GameObject {
 	public static String[] name =     new String[]{"ak47",  "awp", "m4a1s"};
 	public static double[] damage =   new double[]{    30,    100,     30};
 	public static long[] delayPerShot = new long[]{   100,   1500,    100};
+	public static double[] speed =    new double[]{    15,     30,     15};
 	public static Color[] colors = new Color[]{
 			Color.create(255, 0, 0), 
 			Color.create(0, 180, 0),
@@ -34,7 +35,6 @@ public class GameObjectGun extends GameObject {
 		R.noStroke();
 		setColorAsFill();
 		switch(name[index]){
-		
 		case "ak47":
 			R.rect(10, 5, 10, 3);
 			break;
@@ -59,6 +59,10 @@ public class GameObjectGun extends GameObject {
 	
 	public Color getColor(){
 		return colors[index];
+	}
+	
+	public double getSpeed(){
+		return speed[index];
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class StateGame extends State{
 	
 	private GameObjectPlayer player;
-	private GameMap map;
+	//private GameMap map;
 	private ArrayList<GameObject> gameobjects;
 	private long shootTimer;
 
@@ -15,7 +15,7 @@ public class StateGame extends State{
 		gameobjects = new ArrayList<GameObject>();
 		shootTimer = 0;
 
-		map = new GameMap(null); //TODO: later change null to something else
+		//map = new GameMap(null); //TODO: later change null to something else
 		player.setGun(new GameObjectGun("m4a1s"));
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
@@ -33,7 +33,7 @@ public class StateGame extends State{
 	@Override
 	public void update() {
 		player.update();
-		map.update();
+		//map.update();
 		
 		for(int i = gameobjects.size() - 1; i >= 0; i--){
 			gameobjects.get(i).update();
@@ -48,7 +48,7 @@ public class StateGame extends State{
 		GameObject.R.translate(Main.WIDTH/2-player.getXF(), Main.HEIGHT/2-player.getYF());
 		for(GameObject go : gameobjects)
 			go.render(framestep);
-		map.render(framestep);
+		//map.render(framestep);
 		player.render(framestep);
 	}
 	

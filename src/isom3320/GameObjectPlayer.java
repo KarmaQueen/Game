@@ -38,17 +38,17 @@ public class GameObjectPlayer extends GameObject {
 			isShooting = false;
 		}
 		
-		if(isShooting && cantShootFor <= System.currentTimeMillis()){
+		if(isShooting && canShoot()){
 			cantShootFor(getGun().getDelay());
 			Main.playSound(getGun().getName());
 
 			Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
-			Vector velocity = Vector.createFromAngle(getAngle(), 15);
-			double randomness = !isMoving()? randIncreaser * MathHelper.toRad : 0;
+			Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
+			double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
 			double damage = getGun().getDamage();
 			state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
 			
-			randIncreaser = Math.min(randIncreaser + 4D, 32D);
+			
 		} else {
 			randIncreaser = 4;
 		}
@@ -63,9 +63,16 @@ public class GameObjectPlayer extends GameObject {
 		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.5);
 		if(isShooting){
 			tempMotion.scalar(0.1);
+			randIncreaser = Math.min(randIncreaser + 4D, 32D);
+			if("awp".equals(getGun().getName()) && !canShoot())
+				motion.add(Vector.createFromAngle(angle, -40));
 		}
 		motion = motion.add(tempMotion);
 		
+	}
+	
+	private boolean canShoot(){
+		return cantShootFor <= System.currentTimeMillis();
 	}
 
 	@Override
