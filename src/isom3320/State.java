@@ -1,7 +1,10 @@
 package isom3320;
 
+import java.util.Random;
+
 public abstract class State {
 	
+	protected static Random rand;
 	protected State nextState;
 
 	public abstract void init();

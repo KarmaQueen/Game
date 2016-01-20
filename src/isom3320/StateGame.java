@@ -40,6 +40,9 @@ public class StateGame extends State{
 				gameobjects.remove(i);
 		}
 		
+		if(rand.nextInt(50) == 0){
+			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
+		}
 	}
 
 	@Override

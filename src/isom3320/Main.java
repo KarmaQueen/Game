@@ -43,6 +43,7 @@ public class Main extends PApplet{
 		changeState(new StateGame());
 		GameObject.R = this;
 		initInputs();
+		State.rand = rand;
 	}
 	
 	@Override

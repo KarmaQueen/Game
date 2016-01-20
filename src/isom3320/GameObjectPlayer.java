@@ -2,7 +2,6 @@ package isom3320;
 
 import processing.core.PConstants;
 
-
 public class GameObjectPlayer extends GameObject {
 
 	private boolean isShooting;
