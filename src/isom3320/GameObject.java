@@ -53,7 +53,10 @@ public abstract class GameObject {
 		} else isMoving = false;
 		pPos.setVec(pos);
 		//Update health
-		if(health <= 0) kill();
+		if(health <= 0){ 
+			kill();
+			isDead = true;
+		}
 	}
 
 	public abstract void render(double framestep);

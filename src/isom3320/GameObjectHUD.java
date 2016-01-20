@@ -6,7 +6,6 @@ public class GameObjectHUD extends GameObject {
 
 	private float health;
 	private float ammo;
-	private int score;
 
 	private float redHealthHeight;
 	private float redHealthWidth;
@@ -23,7 +22,6 @@ public class GameObjectHUD extends GameObject {
 		health = 300;
 		redHealthHeight = 25;
 		redHealthWidth = 300;
-		score = 0;
 	}
 
 	@Override
@@ -39,7 +37,9 @@ public class GameObjectHUD extends GameObject {
 		R.rotate((float)(180*MathHelper.toRad));
 		R.rect(-ammo*10, Main.HEIGHT*0.4F, ammo*10, redHealthHeight);
 		
-		
+		R.fill(255,255,255);
+		R.textSize(20);
+		R.text("Score: " + StateGame.score, (float)(-34), (float)(Main.HEIGHT*0.47));
 	}
 
 	@Override
@@ -47,6 +47,7 @@ public class GameObjectHUD extends GameObject {
 		super.update();
 		calculateHealth();
 		calculateAmmo();
+		calculateScore();
 	}
 
 	public void calculateHealth(){
@@ -57,5 +58,8 @@ public class GameObjectHUD extends GameObject {
 	public void calculateAmmo(){
 		ammo = player.getGun().getCurrentAmmo();
 	}
-
+	
+	public void calculateScore(){
+		
+	}
 }

@@ -24,6 +24,12 @@ public class GameObjectEnemy extends GameObject {
 	}
 	
 	@Override
+	public void kill(){
+		super.kill();
+		StateGame.score += 1;
+	}
+	
+	@Override
 	public void render(double framestep) {
 		R.pushMatrix();
 		{

@@ -8,11 +8,13 @@ public class StateGame extends State{
 	//private GameMap map;
 	private ArrayList<GameObject> gameobjects;
 	private ArrayList<GameObjectBullet> bullets;
+	public static int score;
 
 	public void init(){
 		player = new GameObjectPlayer();
 		gameobjects = new ArrayList<GameObject>();
 		bullets = new ArrayList<GameObjectBullet>();
+		score = 0;
 
 		//map = new GameMap(null); //TODO: later change null to something else
 		player.setGun(new GameObjectGun("ak47", player));
@@ -49,9 +51,11 @@ public class StateGame extends State{
 		}
 		
 		for(int i = gameobjects.size() - 1; i >= 0; i--){
-			gameobjects.get(i).update();
-			if(gameobjects.get(i).isDead())
+			GameObject go = gameobjects.get(i);
+			go.update();
+			if(go.isDead()){
 				gameobjects.remove(i);
+			}
 		}
 		
 		if(rand.nextInt(50) == 0){
