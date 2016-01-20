@@ -133,7 +133,6 @@ public abstract class GameObject {
 		return size;
 	}
 	public boolean collidesWith(GameObject go){
-		//TODO: fak should've picked number 4
 		Vector v = pos.add(motion);
 		Vector v2 = go.pos.add(go.motion);
 		double distSq = Vector.getDistanceSq(v, v2);

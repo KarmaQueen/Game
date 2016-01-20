@@ -21,9 +21,10 @@ public class GameObjectEnemy extends GameObject {
 	public void update(){
 		super.update();
 		if(time <= System.currentTimeMillis()){
-			damage(10);
+			//damage(10);
 			time = System.currentTimeMillis() + 1000;
 		}
+		motion = motion.add(Math.random() * 10-5,Math.random() * 10-5).scalar(0.75);
 	}
 	
 	@Override
