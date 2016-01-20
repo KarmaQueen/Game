@@ -2,15 +2,14 @@ package isom3320;
 
 public class GameObjectHUD extends GameObject {
 
-	private String effect;
 	private GameObjectPlayer player;
 
 	private float health;
+	private float ammo;
+	private int score;
 
 	private float redHealthHeight;
 	private float redHealthWidth;
-	
-	private float ammo;
 
 	public GameObjectHUD(GameObjectPlayer player){
 		super();
@@ -24,6 +23,7 @@ public class GameObjectHUD extends GameObject {
 		health = 300;
 		redHealthHeight = 25;
 		redHealthWidth = 300;
+		score = 0;
 	}
 
 	@Override
@@ -36,7 +36,10 @@ public class GameObjectHUD extends GameObject {
 		
 		R.rectMode(0);
 		R.fill(255,255,0);
-		R.rect(0, Main.HEIGHT*0.4F, ammo*10, redHealthHeight);
+		R.rotate((float)(180*MathHelper.toRad));
+		R.rect(-ammo*10, Main.HEIGHT*0.4F, ammo*10, redHealthHeight);
+		
+		
 	}
 
 	@Override
