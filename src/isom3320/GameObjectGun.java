@@ -88,8 +88,12 @@ public class GameObjectGun extends GameObject {
 		currentAmmo = maxAmmo[index];
 	}
 
-	public long getReloadTIme() {
+	public long getReloadTime() {
 		return reloadTimer[index];
+	}
+	
+	public int getCurrentAmmo(){
+		return currentAmmo;
 	}
 
 }

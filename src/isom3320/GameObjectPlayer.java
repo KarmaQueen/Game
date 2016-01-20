@@ -19,14 +19,18 @@ public class GameObjectPlayer extends GameObject {
 	@Override
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
+		
+		gun = new GameObjectGun("ak47", this);
+		
+		hud = new GameObjectHUD(this);
+		hud.setPos(pos.addY(100));
+		
 		isShooting = false;
 		motionMult = 0.8D; 
-		gun = new GameObjectGun("ak47", this);
+		
 		cantShootFor = 0;
 		randIncreaser = 4;
 		reloadFlag = false;
-		hud = new GameObjectHUD();
-		hud.setPos(pos.addY(100));
 	}
 
 	@Override
@@ -93,7 +97,7 @@ public class GameObjectPlayer extends GameObject {
 			if(canShoot() && reloadFlag){
 				reloadFlag = false;
 				gun.reload();
-				cantShootFor(gun.getReloadTIme());
+				cantShootFor(gun.getReloadTime());
 			}
 		} else reloadFlag = true;
 		

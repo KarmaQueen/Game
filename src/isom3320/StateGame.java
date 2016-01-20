@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class StateGame extends State{
 	
 	private GameObjectPlayer player;
-	private GameObjectHUD hud;
 	//private GameMap map;
 	private ArrayList<GameObject> gameobjects;
 

@@ -47,10 +47,6 @@ public class GameMap extends GameObject {
 		
 	}
 
-	public void setSize(int size) {
-		this.size = size;
-	}
-
 	@Override
 	public void render(double framestep) {
 		// TODO Auto-generated method stub
