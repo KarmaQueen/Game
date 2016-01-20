@@ -17,7 +17,7 @@ public class GameObjectItem extends GameObject {
 	
 	@Override
 	public void init(){
-		size = 30;
+		size = 40;
 	}
 	
 	public static void setPlayer(GameObjectPlayer player){

@@ -30,7 +30,7 @@ public class GameObjectEnemy extends GameObject {
 
 			R.noStroke();
 			R.fill(200, 0, 0);
-			R.rect(0, 0, 10, 25);
+			R.ellipse(0, 0, size, size);
 		}
 		R.popMatrix();
 	}

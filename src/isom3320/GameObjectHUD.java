@@ -1,10 +1,6 @@
 package isom3320;
 
-import processing.core.PConstants;
-
 public class GameObjectHUD extends GameObject {
-	private String effect;
-
 	private float redHealthHeight;
 	private float redHealthWidth;
 

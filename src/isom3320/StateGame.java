@@ -14,7 +14,7 @@ public class StateGame extends State{
 		gameobjects = new ArrayList<GameObject>();
 
 		//map = new GameMap(null); //TODO: later change null to something else
-		player.setGun(new GameObjectGun("m4a1s", player));
+		player.setGun(new GameObjectGun("ak47", player));
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
 		GameObjectEnemy.player = player;

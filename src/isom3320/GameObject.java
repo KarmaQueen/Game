@@ -11,7 +11,8 @@ public abstract class GameObject {
 	
 	protected Vector pos, pPos, motion; 
 	
-	protected double angle, motionMult, size;
+	protected double angle, motionMult;
+	protected float size;
 	private boolean isDead, isMoving;
 	protected Color color;
 
@@ -35,6 +36,7 @@ public abstract class GameObject {
 		motion = Vector.ZERO.clone();
 		motionMult = 0.95D;
 		color = Color.create(255, 255, 255);
+		size = 25;
 		init();
 	}
 	
@@ -123,7 +125,7 @@ public abstract class GameObject {
 		return isMoving;
 	}
 	
-	public void setSize(double size){
+	public void setSize(float size){
 		this.size = size;
 	}
 	public double getSize(){
