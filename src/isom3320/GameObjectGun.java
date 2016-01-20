@@ -100,5 +100,9 @@ public class GameObjectGun extends GameObject {
 	public int getCurrentAmmo(){
 		return currentAmmo;
 	}
+	
+	public int getMaxAmmo(){
+		return maxAmmo[this.index];
+	}
 
 }
