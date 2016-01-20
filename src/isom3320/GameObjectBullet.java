@@ -6,15 +6,18 @@ public class GameObjectBullet extends GameObject {
 	
 	private Vector velocity;
 	private long timer, life;
-	private double damage;
+	private float damage;
 	
-	public GameObjectBullet(Vector pos, Vector vel, double randomness, double damage) {
+	public GameObjectBullet(Vector pos, Vector vel, double randomness, float damage) {
+		super();
 		setPos(pos);
 		velocity = vel;
 		life = 1000;
 		timer = System.currentTimeMillis() + life;
 		setAngle(vel.getAngle() + (Math.random() * randomness) - randomness *0.5D);
 		velocity = Vector.createFromAngle(getAngle(), vel.getLength());
+		size = 1;
+		this.damage = damage;
 	}
 
 	@Override
@@ -22,7 +25,7 @@ public class GameObjectBullet extends GameObject {
 		super.update();
 		pos = pos.add(velocity).add(Vector.random(0.5D));
 		
-		if(System.currentTimeMillis() >= timer)	setDead();
+		if(System.currentTimeMillis() >= timer)	kill();
 	}
 
 	@Override
@@ -46,6 +49,10 @@ public class GameObjectBullet extends GameObject {
 
 	public void setVelocity(Vector velocity) {
 		this.velocity = velocity;
+	}
+
+	public float getBulletDamage() {
+		return damage;
 	}
 
 }

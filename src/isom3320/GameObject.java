@@ -53,7 +53,7 @@ public abstract class GameObject {
 		} else isMoving = false;
 		pPos.setVec(pos);
 		//Update health
-		if(health <= 0) setDead();
+		if(health <= 0) kill();
 	}
 
 	public abstract void render(double framestep);
@@ -116,7 +116,7 @@ public abstract class GameObject {
 	public boolean isDead() {
 		return isDead;
 	}
-	public void setDead() {
+	public void kill() {
 		this.isDead = true;
 	}
 	public Vector getMotion() {
@@ -134,7 +134,11 @@ public abstract class GameObject {
 	}
 	public boolean collidesWith(GameObject go){
 		//TODO: fak should've picked number 4
-		return false;
+		Vector v = pos.add(motion);
+		Vector v2 = go.pos.add(go.motion);
+		double distSq = Vector.getDistanceSq(v, v2);
+		double radius = this.size + go.size;
+		return distSq < radius*radius;
 	}
 	
 	//Health methods

@@ -60,7 +60,7 @@ public class GameObjectPlayer extends GameObject {
 					Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
 					Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
 					double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
-					double damage = getGun().getDamage();
+					float damage = getGun().getDamage();
 					state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
 					
 					//awp users get recoiled

@@ -3,7 +3,7 @@ package isom3320;
 public class GameObjectGun extends GameObject {
 	
 	public static String[] name =     new String[]{"ak47",  "awp", "m4a1s"};
-	public static double[] damage =   new double[]{    30,    100,     30};
+	public static float[] damage =     new float[]{    30,    100,     30};
 	public static long[] delayPerShot = new long[]{   100,   1500,    100};
 	public static double[] speed =    new double[]{    15,     30,     15};
 	public static int[] maxAmmo =        new int[]{    30,     10,     30};
@@ -62,7 +62,7 @@ public class GameObjectGun extends GameObject {
 		return delayPerShot[index];
 	}
 	
-	public double getDamage(){
+	public float getDamage(){
 		return damage[index];
 	}
 	
