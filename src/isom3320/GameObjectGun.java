@@ -6,17 +6,20 @@ public class GameObjectGun extends GameObject {
 	public static double[] damage =   new double[]{    30,    100,     30};
 	public static long[] delayPerShot = new long[]{   100,   1500,    100};
 	public static double[] speed =    new double[]{    15,     30,     15};
+	public static int[] maxAmmo =        new int[]{    30,     10,     30};
+	public static long[] reloadTimer =  new long[]{  1500,   1700,   1500};
 	public static Color[] colors = new Color[]{
-			Color.create(255, 0, 0), 
-			Color.create(0, 180, 0),
+			Color.create(121, 67, 54), 
+			Color.create(0, 140, 0),
 			Color.create(0, 0, 200)};
-	private int index;
+	private int index, currentAmmo;
 	
 	public GameObjectGun(String s){
 		for(int i = 0; i < name.length; i++){
 			if(s.equals(name[i])){
 				index = i;
 				color = colors[i];
+				currentAmmo = maxAmmo[i];
 				break;
 			}
 				
@@ -36,12 +39,16 @@ public class GameObjectGun extends GameObject {
 		setColorAsFill();
 		switch(name[index]){
 		case "ak47":
-			R.rect(10, 5, 10, 3);
+			R.fill(82, 80, 94);
+			R.rect(15, 5, 30, 4);
+			R.fill(121, 67, 54);
+			R.rect(15, 5, 3, 5);
+			R.rect(0, 5, 4, 5);
 			break;
 		case "awp":
-			R.rect(10, 5, 30, 4);
+			R.rect(25, 5, 50, 5);
 		case "m4a1s":
-			R.rect(10, 5, 20, 3);
+			R.rect(15, 5, 30, 4);
 		}	
 	}
 	
@@ -63,6 +70,24 @@ public class GameObjectGun extends GameObject {
 	
 	public double getSpeed(){
 		return speed[index];
+	}
+	
+	public boolean shoot(){
+		if(currentAmmo <= 0){
+			return false;
+		}
+		currentAmmo--;
+		Main.playSound(name[index]);
+		return true;
+	}
+	
+	public void reload(){
+		Main.playSound(name[index]+"_reload");
+		currentAmmo = maxAmmo[index];
+	}
+
+	public long getReloadTIme() {
+		return reloadTimer[index];
 	}
 
 }

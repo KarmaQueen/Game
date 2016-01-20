@@ -4,12 +4,14 @@ import processing.core.PConstants;
 
 
 public class GameObjectPlayer extends GameObject {
-	
+
 	private boolean isShooting;
 	private GameObjectGun gun;
 	private long cantShootFor;
 	private double randIncreaser;
-
+	
+	private boolean reloadFlag;
+	private boolean emptyFlag;
 	@Override
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
@@ -18,12 +20,13 @@ public class GameObjectPlayer extends GameObject {
 		gun = new GameObjectGun("ak47");
 		cantShootFor = 0;
 		randIncreaser = 4;
+		reloadFlag = false;
 	}
-	
+
 	@Override
 	public void update(){
 		super.update();
-		
+
 		//faces the mouse
 		setAngle((float)(
 				Vector.create(R.mouseX, R.mouseY)
@@ -32,30 +35,37 @@ public class GameObjectPlayer extends GameObject {
 				.getAngle()
 				));
 		gun.setAngle(angle);
-		
+
 		isShooting = R.mousePressed;
 		if(cantShootFor > System.currentTimeMillis()){
 			isShooting = false;
 		}
-		
-		if(isShooting && canShoot()){
-			cantShootFor(getGun().getDelay());
-			Main.playSound(getGun().getName());
 
-			Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
-			Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
-			double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
-			double damage = getGun().getDamage();
-			state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
+		if(isShooting && canShoot()){
+			if(gun.shoot()){
+				cantShootFor(getGun().getDelay());
+
+				Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
+				Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
+				double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
+				double damage = getGun().getDamage();
+				state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
+			} else {
+				if(emptyFlag){
+					emptyFlag = false;
+					Main.playSound("clipempty_rifle");
+				}
+			}
 			
-			
+
 		} else {
 			randIncreaser = 4;
+			emptyFlag = true;
 		}
 
 		if(isShooting && !gun.getName().equals("awp"))
 			motion.scalar(0.8D);
-		
+
 		Vector tempMotion = Vector.ZERO.clone();
 		if(Main.isPressed('w')) tempMotion = tempMotion.addY(-0.5);
 		if(Main.isPressed('s')) tempMotion = tempMotion.addY(+0.5);
@@ -69,8 +79,18 @@ public class GameObjectPlayer extends GameObject {
 		}
 		motion = motion.add(tempMotion);
 		
+		if(Main.isPressed('r')){
+			if(canShoot() && reloadFlag){
+				reloadFlag = false;
+				
+				gun.reload();
+				cantShootFor(gun.getReloadTIme());
+			}
+		} else {
+			reloadFlag = true;
+		}
 	}
-	
+
 	private boolean canShoot(){
 		return cantShootFor <= System.currentTimeMillis();
 	}
@@ -78,16 +98,16 @@ public class GameObjectPlayer extends GameObject {
 	@Override
 	public void render(double framestep) {
 		// TODO Auto-generated method stub
-		
-		
+
+
 		R.pushMatrix();
 		{
 			R.translate(getXF(), getYF());
 			R.rotate((float) getAngle());
 			R.rectMode(PConstants.CENTER);
-			
+
 			gun.render(framestep);
-			
+
 			R.noStroke();
 			R.fill(100, 0, 255);
 			R.rect(0, 0, 10, 25);
@@ -98,7 +118,7 @@ public class GameObjectPlayer extends GameObject {
 	public boolean isShooting() {
 		return isShooting;
 	}
-	
+
 	public GameObjectGun getGun() {
 		return gun;
 	}
@@ -110,9 +130,8 @@ public class GameObjectPlayer extends GameObject {
 	public void setGun(String gun) {
 		setGun(new GameObjectGun(gun));
 	}
-	
+
 	public void cantShootFor(long time){
 		cantShootFor = time + System.currentTimeMillis();
 	}
-	
 }

@@ -124,7 +124,7 @@ public class Main extends PApplet{
 		        clip.open(inputStream);
 		        clip.start();
 		      } catch (Exception e) {
-		        System.err.println(e.getMessage());
+		    	  System.out.println("Can't find " + url + "!");
 		      }
 		    }
 		  }).start();
