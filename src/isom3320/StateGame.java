@@ -7,22 +7,21 @@ public class StateGame extends State{
 	private GameObjectPlayer player;
 	//private GameMap map;
 	private ArrayList<GameObject> gameobjects;
-	private long shootTimer;
-
 
 	public void init(){
 		player = new GameObjectPlayer();
 		gameobjects = new ArrayList<GameObject>();
-		shootTimer = 0;
 
 		//map = new GameMap(null); //TODO: later change null to something else
-		player.setGun(new GameObjectGun("m4a1s"));
+		player.setGun(new GameObjectGun("m4a1s", player));
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
+		GameObjectEnemy.player = player;
 		
 		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
 		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
 		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
+		this.spawn(new GameObjectEnemy(Vector.create(300, 300), 180*MathHelper.invPI));
 	}
 
 	@Override
@@ -45,7 +44,9 @@ public class StateGame extends State{
 
 	@Override
 	public void render(double framestep) {
-		GameObject.R.translate(Main.WIDTH/2-player.getXF(), Main.HEIGHT/2-player.getYF());
+		GameObject.R.translate(
+				Main.WIDTH/2-player.getXF(), 
+				Main.HEIGHT/2-player.getYF());
 		for(GameObject go : gameobjects)
 			go.render(framestep);
 		//map.render(framestep);

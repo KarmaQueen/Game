@@ -8,8 +8,9 @@ public class GameObjectPlayer extends GameObject {
 	private boolean isShooting;
 	private GameObjectGun gun;
 	private long cantShootFor;
+	private long gunCantShootFor;
 	private double randIncreaser;
-	
+
 	private boolean reloadFlag;
 	private boolean emptyFlag;
 	@Override
@@ -17,7 +18,7 @@ public class GameObjectPlayer extends GameObject {
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
 		isShooting = false;
 		motionMult = 0.8D; 
-		gun = new GameObjectGun("ak47");
+		gun = new GameObjectGun("ak47", this);
 		cantShootFor = 0;
 		randIncreaser = 4;
 		reloadFlag = false;
@@ -30,76 +31,74 @@ public class GameObjectPlayer extends GameObject {
 		//faces the mouse
 		setAngle((float)(
 				Vector.create(R.mouseX, R.mouseY)
-				//.sub(getPos())
 				.sub(Vector.create(Main.WIDTH/2, Main.HEIGHT/2))
 				.getAngle()
 				));
-		gun.setAngle(angle);
+		//lookAt(R.mouseX + pos.getX() - Main.WIDTH/2, R.mouseY + pos.getY() - Main.HEIGHT/2);
 
+		gun.setAngle(angle);
+		
 		isShooting = R.mousePressed;
-		if(cantShootFor > System.currentTimeMillis()){
+		if(!canShoot()){
 			isShooting = false;
 		}
 
-		if(isShooting && canShoot()){
-			if(gun.shoot()){
-				cantShootFor(getGun().getDelay());
+		if(R.mousePressed){
+			if(canShoot()){
+				if(gun.shoot()){
+					gunCantShootFor(getGun().getDelay());
+					
+					//calculates stuff to spawn bullets
+					Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
+					Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
+					double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
+					double damage = getGun().getDamage();
+					state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
+					
+					//awp users get recoiled
+					if("awp".equals(getGun().getName()))
+						motion.add(Vector.createFromAngle(angle, -4));
+				} else { //shot, but gun is empty
+					if(emptyFlag){
+						emptyFlag = false;
+						Main.playSound("clipempty_rifle");
+					}
 
-				Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
-				Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
-				double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
-				double damage = getGun().getDamage();
-				state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
-			} else {
-				if(emptyFlag){
-					emptyFlag = false;
-					Main.playSound("clipempty_rifle");
 				}
-			}
-			
-
+			} // can't shoot b/c either drawing or reloading
 		} else {
 			randIncreaser = 4;
 			emptyFlag = true;
 		}
-
-		if(isShooting && !gun.getName().equals("awp"))
-			motion.scalar(0.8D);
 
 		Vector tempMotion = Vector.ZERO.clone();
 		if(Main.isPressed('w')) tempMotion = tempMotion.addY(-0.5);
 		if(Main.isPressed('s')) tempMotion = tempMotion.addY(+0.5);
 		if(Main.isPressed('a')) tempMotion = tempMotion.addX(-0.5);
 		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.5);
-		if(isShooting){
+		if(R.mousePressed){
 			tempMotion.scalar(0.1);
 			randIncreaser = Math.min(randIncreaser + 4D, 32D);
-			if("awp".equals(getGun().getName()) && !canShoot())
-				motion.add(Vector.createFromAngle(angle, -40));
+
 		}
 		motion = motion.add(tempMotion);
-		
+
+		//Handles Reloading
 		if(Main.isPressed('r')){
 			if(canShoot() && reloadFlag){
 				reloadFlag = false;
-				
 				gun.reload();
 				cantShootFor(gun.getReloadTIme());
 			}
-		} else {
-			reloadFlag = true;
-		}
+		} else reloadFlag = true;
 	}
 
 	private boolean canShoot(){
-		return cantShootFor <= System.currentTimeMillis();
+		return cantShootFor <= System.currentTimeMillis() && gunCantShootFor <= System.currentTimeMillis();
 	}
-
+	
 	@Override
 	public void render(double framestep) {
-		// TODO Auto-generated method stub
-
-
 		R.pushMatrix();
 		{
 			R.translate(getXF(), getYF());
@@ -128,10 +127,14 @@ public class GameObjectPlayer extends GameObject {
 		Main.playSound(gun.getName() + "_draw");
 	}
 	public void setGun(String gun) {
-		setGun(new GameObjectGun(gun));
+		setGun(new GameObjectGun(gun, this));
 	}
 
 	public void cantShootFor(long time){
 		cantShootFor = time + System.currentTimeMillis();
+	}
+	
+	public void gunCantShootFor(long time){
+		gunCantShootFor = time + System.currentTimeMillis();
 	}
 }

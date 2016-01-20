@@ -30,7 +30,7 @@ public abstract class GameObject {
 	public GameObject(Vector v, double angle){
 		pos = v.clone();
 		pPos = pos.clone();
-		angle = 0;
+		this.angle = angle;
 		isDead = false;
 		motion = Vector.ZERO.clone();
 		motionMult = 0.95D;
@@ -90,6 +90,14 @@ public abstract class GameObject {
 	public void setAngle(double angle) {
 		this.angle = angle;
 	}
+	
+	public void lookAt(Vector v){
+		lookAt(v.getX(), v.getY());
+	}
+	public void lookAt(double x, double y){
+		this.angle = new Vector(x, y).sub(pos).getAngle();
+	}
+	
 	protected void setColorAsFill(){
 		int[] arr = color.getColorArr();
 		R.fill(arr[0], arr[1], arr[2]);

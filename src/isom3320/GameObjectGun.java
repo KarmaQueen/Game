@@ -13,8 +13,9 @@ public class GameObjectGun extends GameObject {
 			Color.create(0, 140, 0),
 			Color.create(0, 0, 200)};
 	private int index, currentAmmo;
+	private GameObject user;
 	
-	public GameObjectGun(String s){
+	public GameObjectGun(String s, GameObject user){
 		for(int i = 0; i < name.length; i++){
 			if(s.equals(name[i])){
 				index = i;
@@ -24,6 +25,7 @@ public class GameObjectGun extends GameObject {
 			}
 				
 		}
+		this.user = user;
 	}
 	
 	@Override
