@@ -25,8 +25,8 @@ public class Main extends PApplet{
 	public static Random rand;
 	
 	public static void main(String[] args) {
-		WIDTH = 1600;
-		HEIGHT = 900;
+		WIDTH = 1280;
+		HEIGHT = 800;
 		rand = new Random();
 		
 		PApplet.main(new String[] {"isom3320.Main"});

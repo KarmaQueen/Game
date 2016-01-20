@@ -13,6 +13,9 @@ public class GameObjectPlayer extends GameObject {
 
 	private boolean reloadFlag;
 	private boolean emptyFlag;
+	
+	private GameObjectHUD hud;
+	
 	@Override
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
@@ -22,6 +25,8 @@ public class GameObjectPlayer extends GameObject {
 		cantShootFor = 0;
 		randIncreaser = 4;
 		reloadFlag = false;
+		hud = new GameObjectHUD();
+		hud.setPos(pos.addY(100));
 	}
 
 	@Override
@@ -91,6 +96,8 @@ public class GameObjectPlayer extends GameObject {
 				cantShootFor(gun.getReloadTIme());
 			}
 		} else reloadFlag = true;
+		
+		hud.update();
 	}
 
 	private boolean canShoot(){
@@ -102,6 +109,9 @@ public class GameObjectPlayer extends GameObject {
 		R.pushMatrix();
 		{
 			R.translate(getXF(), getYF());
+			
+			hud.render(framestep);
+			
 			R.rotate((float) getAngle());
 			R.rectMode(PConstants.CENTER);
 
@@ -120,6 +130,10 @@ public class GameObjectPlayer extends GameObject {
 
 	public GameObjectGun getGun() {
 		return gun;
+	}
+	
+	public GameObjectHUD getHUD(){
+		return hud;
 	}
 
 	public void setGun(GameObjectGun gun) {

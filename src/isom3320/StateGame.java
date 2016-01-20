@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class StateGame extends State{
 	
 	private GameObjectPlayer player;
+	private GameObjectHUD hud;
 	//private GameMap map;
 	private ArrayList<GameObject> gameobjects;
 
@@ -32,7 +33,6 @@ public class StateGame extends State{
 	@Override
 	public void update() {
 		player.update();
-		//map.update();
 		
 		for(int i = gameobjects.size() - 1; i >= 0; i--){
 			gameobjects.get(i).update();
@@ -49,7 +49,6 @@ public class StateGame extends State{
 				Main.HEIGHT/2-player.getYF());
 		for(GameObject go : gameobjects)
 			go.render(framestep);
-		//map.render(framestep);
 		player.render(framestep);
 	}
 	
