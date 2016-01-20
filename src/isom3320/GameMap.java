@@ -47,10 +47,6 @@ public class GameMap extends GameObject {
 		
 	}
 
-	public int getSize() {
-		return size;
-	}
-
 	public void setSize(int size) {
 		this.size = size;
 	}
