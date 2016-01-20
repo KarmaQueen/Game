@@ -2,7 +2,6 @@ package isom3320;
 
 import processing.core.PConstants;
 
-
 public class GameObjectPlayer extends GameObject {
 
 	private boolean isShooting;
@@ -123,7 +122,7 @@ public class GameObjectPlayer extends GameObject {
 
 			R.noStroke();
 			R.fill(100, 0, 255);
-			R.ellipse(0, 0, 25, 25);
+			R.ellipse(0, 0, size, size);
 		}
 		R.popMatrix();
 	}

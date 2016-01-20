@@ -11,8 +11,9 @@ public abstract class GameObject {
 	
 	protected Vector pos, pPos, motion; 
 	
-	protected double angle, motionMult, size;
-	private boolean isDead, isMoving;
+	protected double angle, motionMult;
+	protected float size, health, maxHealth;
+	protected boolean isDead, isMoving;
 	protected Color color;
 
 	public GameObject(){
@@ -35,22 +36,24 @@ public abstract class GameObject {
 		motion = Vector.ZERO.clone();
 		motionMult = 0.95D;
 		color = Color.create(255, 255, 255);
+		size = 25;
+		maxHealth = health = 100;
 		init();
 	}
 	
 	public void init(){}
 
 	public void update() {
-		
+		//Update Motion and Position
 		pos.setVec(pos.add(motion));
-		//motion.setVec(Math.max(0, motion.getX() - motionMult), Math.max(0, motion.getY() - motionMult));
 		motion.scalar(motionMult);
 		if(motion.getLengthSq() <= 0.00001D){
 			motion.setVec(0, 0);
 			isMoving = true;
 		} else isMoving = false;
-		
 		pPos.setVec(pos);
+		//Update health
+		if(health <= 0) setDead();
 	}
 
 	public abstract void render(double framestep);
@@ -123,7 +126,7 @@ public abstract class GameObject {
 		return isMoving;
 	}
 	
-	public void setSize(double size){
+	public void setSize(float size){
 		this.size = size;
 	}
 	public double getSize(){
@@ -132,5 +135,28 @@ public abstract class GameObject {
 	public boolean collidesWith(GameObject go){
 		//TODO: fak should've picked number 4
 		return false;
+	}
+	
+	//Health methods
+	public void setHealth(float f){
+		health = f;
+	}
+	public void setMaxHealth(float f){
+		maxHealth = f;
+	}
+	public float getHealth(){
+		return health;
+	}
+	public float getMaxHealth(){
+		return maxHealth;
+	}
+	public void heal(float f){
+		health += f;
+	}
+	public void damage(float f){
+		health -= f;
+	}
+	public float getHealthRatio(){
+		return health/maxHealth;
 	}
 }
