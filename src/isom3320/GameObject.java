@@ -11,7 +11,7 @@ public abstract class GameObject {
 	
 	protected Vector pos, pPos, motion; 
 	
-	protected double angle, motionMult;
+	protected double angle, motionMult, size;
 	private boolean isDead, isMoving;
 	protected Color color;
 
@@ -121,5 +121,16 @@ public abstract class GameObject {
 	}
 	public boolean isMoving() {
 		return isMoving;
+	}
+	
+	public void setSize(double size){
+		this.size = size;
+	}
+	public double getSize(){
+		return size;
+	}
+	public boolean collidesWith(GameObject go){
+		//TODO: fak should've picked number 4
+		return false;
 	}
 }

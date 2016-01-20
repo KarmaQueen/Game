@@ -82,8 +82,8 @@ public class GameObjectPlayer extends GameObject {
 		if(Main.isPressed('a')) tempMotion = tempMotion.addX(-0.5);
 		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.5);
 		if(R.mousePressed){
-			tempMotion.scalar(0.1);
-			randIncreaser = Math.min(randIncreaser + 4D, 32D);
+			tempMotion.scalar(0.5);
+			randIncreaser = Math.min(randIncreaser + 4D, 16D);
 
 		}
 		motion = motion.add(tempMotion);
@@ -119,7 +119,7 @@ public class GameObjectPlayer extends GameObject {
 
 			R.noStroke();
 			R.fill(100, 0, 255);
-			R.rect(0, 0, 10, 25);
+			R.ellipse(0, 0, 25, 25);
 		}
 		R.popMatrix();
 	}
