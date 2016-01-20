@@ -6,7 +6,7 @@ public class GameObjectGun extends GameObject {
 	public static float[] damage =     new float[]{    34,   1000,     50};
 	public static long[] delayPerShot = new long[]{   100,   1500,    130};
 	public static double[] speed =    new double[]{    15,     30,     15};
-	public static int[] maxAmmo =        new int[]{    30,     10,     25};
+	public static int[] maxAmmo =        new int[]{    40,     10,     30};
 	public static long[] reloadTimer =  new long[]{  1500,   1700,   1500};
 	public static Color[] colors = new Color[]{
 			Color.create(121, 67, 54), 

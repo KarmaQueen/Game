@@ -97,6 +97,9 @@ public abstract class GameObject {
 		this.angle = angle;
 	}
 	
+	public void lookAt(GameObject go){
+		lookAt(go.getPos());
+	}
 	public void lookAt(Vector v){
 		lookAt(v.getX(), v.getY());
 	}

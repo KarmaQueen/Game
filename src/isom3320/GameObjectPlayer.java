@@ -75,7 +75,7 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 				}
 			} // can't shoot b/c either drawing or reloading
 		} else {
-			randIncreaser = 4;
+			randIncreaser = 2;
 			emptyFlag = true;
 			if(!gun.shootPreview())
 				gun.reload();
@@ -88,7 +88,7 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.5);
 		if(R.mousePressed){
 			tempMotion.scalar(0.5);
-			randIncreaser = Math.min(randIncreaser + 4D, 16D);
+			randIncreaser = Math.min(randIncreaser + 2D, 8D);
 
 		}
 		motion = motion.add(tempMotion);
@@ -148,7 +148,8 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 	public void setGun(String gun) {
 		setGun(new GameObjectGun(gun, this));
 	}
-
+	
+	@Override
 	public void cantShootFor(long time){
 		cantShootFor = time + System.currentTimeMillis();
 	}
