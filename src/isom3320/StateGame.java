@@ -40,7 +40,6 @@ public class StateGame extends State{
 			for(GameObject go : gameobjects){
 				if(bullets.get(i).collidesWith(go)){
 					go.damage((float) bullets.get(i).getBulletDamage());
-					System.out.println((float) bullets.get(i).getBulletDamage());
 					if(!player.getGun().getName().equals("awp"))
 						bullets.get(i).kill();
 				}

@@ -2,7 +2,7 @@ package isom3320;
 
 import processing.core.PConstants;
 
-public class GameObjectPlayer extends GameObject {
+public class GameObjectPlayer extends GameObject implements Shooter{
 
 	private boolean isShooting;
 	private GameObjectGun gun;
@@ -77,6 +77,8 @@ public class GameObjectPlayer extends GameObject {
 		} else {
 			randIncreaser = 4;
 			emptyFlag = true;
+			if(!gun.shootPreview())
+				gun.reload();
 		}
 
 		Vector tempMotion = Vector.ZERO.clone();
@@ -96,7 +98,7 @@ public class GameObjectPlayer extends GameObject {
 			if(canShoot() && reloadFlag){
 				reloadFlag = false;
 				gun.reload();
-				cantShootFor(gun.getReloadTime());
+				
 			}
 		} else reloadFlag = true;
 		

@@ -2,8 +2,8 @@ package isom3320;
 
 public class GameObjectGun extends GameObject {
 	
-	public static String[] name =     new String[]{"ak47",  "awp", "m4a1s"};
-	public static float[] damage =     new float[]{    30,    100,     30};
+	public static String[] name =     new String[]{"ak47",  "awp","m4a1s"};
+	public static float[] damage =     new float[]{    34,   1000,     34};
 	public static long[] delayPerShot = new long[]{   100,   1500,    100};
 	public static double[] speed =    new double[]{    15,     30,     15};
 	public static int[] maxAmmo =        new int[]{    30,     10,     30};
@@ -13,9 +13,9 @@ public class GameObjectGun extends GameObject {
 			Color.create(0, 140, 0),
 			Color.create(0, 0, 200)};
 	private int index, currentAmmo;
-	private GameObject user;
+	private Shooter user;
 	
-	public GameObjectGun(String s, GameObject user){
+	public GameObjectGun(String s, Shooter user){
 		for(int i = 0; i < name.length; i++){
 			if(s.equals(name[i])){
 				index = i;
@@ -83,9 +83,14 @@ public class GameObjectGun extends GameObject {
 		return true;
 	}
 	
+	public boolean shootPreview(){
+		return currentAmmo > 0;
+	}
+	
 	public void reload(){
 		Main.playSound(name[index]+"_reload");
 		currentAmmo = maxAmmo[index];
+		user.cantShootFor(getReloadTime());
 	}
 
 	public long getReloadTime() {
