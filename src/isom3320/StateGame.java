@@ -59,10 +59,10 @@ public class StateGame extends State{
 		}
 		
 		if(rand.nextInt(100) == 0){
-			//spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
+			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
 		}
 		if(rand.nextInt(50) == 0){
-			spawn(new GameObjectEnemyShooter(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
+			//spawn(new GameObjectEnemyShooter(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
 		}
 	}
 
