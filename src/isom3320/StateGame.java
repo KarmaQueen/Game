@@ -9,12 +9,14 @@ public class StateGame extends State{
 	private ArrayList<GameObject> gameobjects;
 	private ArrayList<GameObjectBullet> bullets;
 	public static int score;
+	public long invulnerabilityTimer;
 
 	public void init(){
 		player = new GameObjectPlayer();
 		gameobjects = new ArrayList<GameObject>();
 		bullets = new ArrayList<GameObjectBullet>();
 		score = 0;
+		invulnerabilityTimer = 0;
 
 		//map = new GameMap(null); //TODO: later change null to something else
 		player.setGun(new GameObjectGun("ak47", player));
@@ -25,7 +27,7 @@ public class StateGame extends State{
 		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
 		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
 		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
-		this.spawn(new GameObjectEnemy(Vector.create(300, 300), 180*MathHelper.invPI));
+		this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
 	}
 
 	@Override
@@ -38,12 +40,14 @@ public class StateGame extends State{
 		player.update();
 		
 		for(int i = bullets.size() - 1; i >= 0; i--){
-			bullets.get(i).update();
+			GameObjectBullet b = bullets.get(i);
+			b.update();
 			for(GameObject go : gameobjects){
-				if(bullets.get(i).collidesWith(go)){
-					go.damage((float) bullets.get(i).getBulletDamage());
+				if(b.collidesWith(go)){
+					if(!b.getOrigin().equals(go))
+					go.damage((float) b.getBulletDamage());
 					if(!player.getGun().getName().equals("awp"))
-						bullets.get(i).kill();
+						b.kill();
 				}
 			}
 			if(bullets.get(i).isDead())
@@ -55,6 +59,18 @@ public class StateGame extends State{
 			go.update();
 			if(go.isDead()){
 				gameobjects.remove(i);
+			}
+			if(go.collidesWith(player)){
+				if(go instanceof GameObjectEnemy){
+					
+					if(invulnerabilityTimer <= System.currentTimeMillis()){
+						player.damage(15);
+						invulnerabilityTimer = System.currentTimeMillis() + 500;
+					}
+					
+				} else if(go instanceof GameObjectItem){
+					player.heal(0.25F);
+				}
 			}
 		}
 		

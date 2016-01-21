@@ -30,6 +30,8 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		cantShootFor = 0;
 		randIncreaser = 4;
 		reloadFlag = false;
+		
+		maxHealth = health = 300;
 	}
 
 	@Override
@@ -54,14 +56,13 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		if(R.mousePressed){
 			if(canShoot()){
 				if(gun.shoot()){
-					gunCantShootFor(getGun().getDelay());
 					
 					//calculates stuff to spawn bullets
 					Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
 					Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
 					double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
 					float damage = getGun().getDamage();
-					state.spawn(new GameObjectBullet(spawnPoint, velocity, randomness, damage));
+					state.spawn(new GameObjectBullet(this, spawnPoint, velocity, randomness, damage));
 					
 					//awp users get recoiled
 					if("awp".equals(getGun().getName()))
@@ -156,5 +157,10 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 	
 	public void gunCantShootFor(long time){
 		gunCantShootFor = time + System.currentTimeMillis();
+	}
+	
+	@Override
+	public Shooter dontCheck(){
+		return this;
 	}
 }

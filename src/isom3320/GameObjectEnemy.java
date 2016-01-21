@@ -20,7 +20,9 @@ public class GameObjectEnemy extends GameObject {
 	@Override
 	public void update(){
 		super.update();
-		motion = motion.add(Math.random() * 10-5,Math.random() * 10-5).scalar(0.25);
+		motion = motion.add(Math.random() - 0.5,Math.random() - 0.5).scalar(0.3);
+		lookAt(player);
+		motion = motion.add(Vector.createFromAngle(angle, 0.9));
 	}
 	
 	@Override
@@ -33,7 +35,8 @@ public class GameObjectEnemy extends GameObject {
 	public void render(double framestep) {
 		R.pushMatrix();
 		{
-			R.translate(getXF(), getYF());
+			Vector v = this.getPartialPos(framestep);
+			R.translate(v.getXF(), v.getYF());
 			
 			R.rectMode(PConstants.CORNER);
 			R.fill(255, 0, 0);

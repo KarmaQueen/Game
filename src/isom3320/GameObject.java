@@ -160,12 +160,19 @@ public abstract class GameObject {
 		return maxHealth;
 	}
 	public void heal(float f){
-		health += f;
+		health = Math.min(maxHealth, health + f);
 	}
 	public void damage(float f){
-		health -= f;
+		if(f >= health) health = 0;
+		else {
+			health -= f;
+		}
 	}
 	public float getHealthRatio(){
 		return health/maxHealth;
+	}
+	
+	public boolean equals(GameObject go){
+		return pos.equals(go.pos);
 	}
 }

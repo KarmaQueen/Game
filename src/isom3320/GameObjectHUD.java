@@ -59,8 +59,9 @@ public class GameObjectHUD extends GameObject {
 	}
 
 	public void calculateHealth(){
-		if(health >= 0)
-			health-=0.5;
+		//if(health >= 0)
+		//	health-=0.5;
+		health = player.health;
 	}
 	
 	public void calculateAmmo(){

@@ -7,13 +7,14 @@ public class GameObjectGun extends GameObject {
 	public static long[] delayPerShot = new long[]{   100,   1500,    130};
 	public static double[] speed =    new double[]{    15,     30,     15};
 	public static int[] maxAmmo =        new int[]{    40,     10,     30};
-	public static long[] reloadTimer =  new long[]{  1500,   1700,   1500};
+	public static long[] reloadTimer =  new long[]{  1500,   1900,   1500};
 	public static Color[] colors = new Color[]{
 			Color.create(121, 67, 54), 
 			Color.create(0, 140, 0),
 			Color.create(0, 0, 200)};
 	private int index, currentAmmo;
 	private Shooter user;
+	private long cantShootFor;
 	
 	public GameObjectGun(String s, Shooter user){
 		for(int i = 0; i < name.length; i++){
@@ -78,8 +79,11 @@ public class GameObjectGun extends GameObject {
 		if(currentAmmo <= 0){
 			return false;
 		}
+		if(!gunCanShoot()) return false;
 		currentAmmo--;
 		Main.playSound(name[index]);
+		cantShootFor(delayPerShot[index]);
+		user.cantShootFor(getDelay());
 		return true;
 	}
 	
@@ -103,6 +107,14 @@ public class GameObjectGun extends GameObject {
 	
 	public int getMaxAmmo(){
 		return maxAmmo[this.index];
+	}
+	
+	public void cantShootFor(long time){
+		cantShootFor = System.currentTimeMillis() + time;
+	}
+	
+	public boolean gunCanShoot(){
+		return cantShootFor <= System.currentTimeMillis();
 	}
 
 }

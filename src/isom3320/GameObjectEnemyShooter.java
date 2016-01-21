@@ -4,8 +4,9 @@ import processing.core.PConstants;
 
 public class GameObjectEnemyShooter extends GameObjectEnemy implements Shooter{
 	
-	protected long cantShootFor;
+	protected long cantShootFor, reloadTimer;
 	protected GameObjectGun gun;
+	private long gunCantShootFor;
 	
 	public GameObjectEnemyShooter(Vector v, double angle) {
 		super(v, angle);
@@ -14,7 +15,7 @@ public class GameObjectEnemyShooter extends GameObjectEnemy implements Shooter{
 	
 	@Override
 	public void init(){
-		cantShootFor = 0;
+		cantShootFor(1000);
 	}
 	
 	@Override
@@ -22,15 +23,20 @@ public class GameObjectEnemyShooter extends GameObjectEnemy implements Shooter{
 		super.update();
 		this.lookAt(player);
 		
-		if(gun.shoot()){
-			cantShootFor(1000);
+		if(gun.shootPreview()){
+			gun.shoot();
+			cantShootFor(3000);
 			
 			Vector spawnPoint = getPos().add(Vector.createFromAngle(getAngle(), 5));
-			Vector velocity = Vector.createFromAngle(getAngle(), gun.getSpeed());
-			float damage = gun.getDamage();
-			state.spawn(new GameObjectBullet(spawnPoint, velocity, 0, damage));
-		} else {
+			Vector velocity = Vector.createFromAngle(angle, gun.getSpeed());
+			float damage = gun.getDamage() * 0.5F;
+			state.spawn(new GameObjectBullet(this, spawnPoint, velocity, 0, damage));
 			
+		} else {
+			if(reloadTimer <= System.currentTimeMillis()){
+				gun.reload();
+				reloadTimer = System.currentTimeMillis() + gun.getReloadTime() + 1000;
+			}
 		}
 		
 		gun.update();
@@ -61,10 +67,19 @@ public class GameObjectEnemyShooter extends GameObjectEnemy implements Shooter{
 		}
 		R.popMatrix();
 	}
-
+	
 	@Override
 	public void cantShootFor(long time) {
 		cantShootFor = time + System.currentTimeMillis();
+	}
+	
+	public void gunCantShootFor(long time){
+		gunCantShootFor = time + System.currentTimeMillis();
+	}
+	
+	@Override
+	public Shooter dontCheck(){
+		return this;
 	}
 
 }

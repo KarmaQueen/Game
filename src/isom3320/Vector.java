@@ -132,6 +132,10 @@ public class Vector {
 		System.out.printf("%-6.3f", yCoord);
 		System.out.print("]");
 	}
+	
+	public boolean equals(Vector v){
+		return xCoord == v.xCoord && yCoord == v.yCoord;
+	}
 }
 
 

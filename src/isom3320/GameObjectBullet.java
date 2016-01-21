@@ -7,8 +7,9 @@ public class GameObjectBullet extends GameObject {
 	private Vector velocity;
 	private long timer, life;
 	private float damage;
+	private Shooter origin;
 	
-	public GameObjectBullet(Vector pos, Vector vel, double randomness, float damage) {
+	public GameObjectBullet(Shooter origin, Vector pos, Vector vel, double randomness, float damage) {
 		super();
 		setPos(pos);
 		velocity = vel;
@@ -18,6 +19,7 @@ public class GameObjectBullet extends GameObject {
 		velocity = Vector.createFromAngle(getAngle(), vel.getLength());
 		size = 1;
 		this.damage = damage;
+		this.origin = origin;
 	}
 
 	@Override
@@ -53,6 +55,10 @@ public class GameObjectBullet extends GameObject {
 
 	public float getBulletDamage() {
 		return damage;
+	}
+
+	public Shooter getOrigin() {
+		return origin;
 	}
 
 }
