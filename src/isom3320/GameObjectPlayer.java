@@ -83,12 +83,12 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		}
 
 		Vector tempMotion = Vector.ZERO.clone();
-		if(Main.isPressed('w')) tempMotion = tempMotion.addY(-0.5);
-		if(Main.isPressed('s')) tempMotion = tempMotion.addY(+0.5);
-		if(Main.isPressed('a')) tempMotion = tempMotion.addX(-0.5);
-		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.5);
+		if(Main.isPressed('w')) tempMotion = tempMotion.addY(-0.4);
+		if(Main.isPressed('s')) tempMotion = tempMotion.addY(+0.4);
+		if(Main.isPressed('a')) tempMotion = tempMotion.addX(-0.4);
+		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.4);
 		if(R.mousePressed){
-			tempMotion.scalar(0.5);
+			tempMotion.scalar(0.4);
 			randIncreaser = Math.min(randIncreaser + 2D, 8D);
 
 		}

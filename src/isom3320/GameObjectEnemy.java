@@ -7,6 +7,7 @@ public class GameObjectEnemy extends GameObject {
 	public static GameObjectPlayer player;
 	
 	private long time;
+	private double speedA, speedB;
 	
 	public GameObjectEnemy(Vector v, double angle) {
 		super(v, angle);
@@ -15,14 +16,16 @@ public class GameObjectEnemy extends GameObject {
 	@Override
 	public void init(){
 		time = System.currentTimeMillis();
+		speedA = Math.random() * 0.4;
+		speedB = Math.random() * 2;
 	}
 	
 	@Override
 	public void update(){
 		super.update();
-		motion = motion.add(Math.random() - 0.5,Math.random() - 0.5).scalar(0.3);
+		motion = motion.add(Math.random() - 0.5,Math.random() - 0.5).scalar(speedA);
 		lookAt(player);
-		motion = motion.add(Vector.createFromAngle(angle, 0.9));
+		motion = motion.add(Vector.createFromAngle(angle, speedB));
 	}
 	
 	@Override
