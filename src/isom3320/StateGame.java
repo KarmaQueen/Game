@@ -72,7 +72,6 @@ public class StateGame extends State{
 		if(rand.nextInt(130) == 0){
 			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
 		}
-		
 		if(player.getHealth() <= 0){
 			GameObject.R.changeState(new StateGameOver(score));
 		}

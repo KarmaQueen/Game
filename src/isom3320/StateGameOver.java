@@ -27,5 +27,5 @@ public class StateGameOver extends State {
 	public void render(double framestep) {
 		GameObject.R.text(yourScore, Main.WIDTH/2, Main.HEIGHT/2);
 	}
-
+	
 }
