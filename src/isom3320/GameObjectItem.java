@@ -59,7 +59,7 @@ public class GameObjectItem extends GameObject {
 			}
 			switch(effect){
 			case "maxHealth": 
-				player.heal(player.getMaxHealth());
+				player.heal(player.getMaxHealth()/2);
 				break;
 			case "maxAmmo": 
 				player.getGun().setAmmo(player.getGun().getMaxAmmo());
@@ -70,7 +70,7 @@ public class GameObjectItem extends GameObject {
 			case "nuke":
 				for(GameObject go : state.gameobjects)
 					go.kill();
-				player.damage(player.getHealth()/2);
+				player.damage(player.getHealth()*0.75F);
 				break;
 			default: break;
 			}

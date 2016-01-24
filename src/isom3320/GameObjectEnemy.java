@@ -20,7 +20,7 @@ public class GameObjectEnemy extends GameObject {
 	public void init(){
 		time = System.currentTimeMillis();
 		speedA = Math.random() * 0.4;
-		speedB = Math.random() * 2;
+		speedB = Math.random() * 1.75;
 	}
 	
 	@Override

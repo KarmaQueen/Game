@@ -163,4 +163,5 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 	public Shooter dontCheck(){
 		return this;
 	}
+	
 }

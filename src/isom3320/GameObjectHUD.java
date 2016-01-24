@@ -23,6 +23,14 @@ public class GameObjectHUD extends GameObject {
 		redHealthHeight = 25;
 		redHealthWidth = 300;
 	}
+	
+	@Override
+	public void update(){
+		super.update();
+		calculateHealth();
+		calculateAmmo();
+		calculateScore();
+	}
 
 	@Override
 	public void render(double framestep) {
@@ -48,14 +56,7 @@ public class GameObjectHUD extends GameObject {
 		String str = (int)ammo + "/" + player.getGun().getMaxAmmo();
 		if(ammo < 10) str = "  " + str;
 		R.text(str, (float)(-68), (float)(Main.HEIGHT*0.4 + 19));
-	}
-
-	@Override
-	public void update(){
-		super.update();
-		calculateHealth();
-		calculateAmmo();
-		calculateScore();
+		
 	}
 
 	public void calculateHealth(){
