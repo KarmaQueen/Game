@@ -26,6 +26,8 @@ public class Main extends PApplet{
 	public static Random rand;
 
 	public static ArrayList<Integer> highscores;
+	
+	public static PFont font;
 
 	public static void main(String[] args) {
 		WIDTH = 1280;
@@ -38,6 +40,9 @@ public class Main extends PApplet{
 		highscores.add(0);
 		highscores.add(0);
 		highscores.add(0);
+		
+		//Main.playSound("music");
+		music("music");
 	}
 
 	@Override
@@ -52,6 +57,7 @@ public class Main extends PApplet{
 		GameObject.R = this;
 		initInputs();
 		State.rand = rand;
+		font = createFont("dimitri.ttf", 50);
 	}
 
 	@Override
@@ -124,8 +130,6 @@ public class Main extends PApplet{
 
 	public static synchronized void playSound(final String url) {
 		new Thread(new Runnable() {
-			// The wrapper thread is unnecessary, unless it blocks on the
-			// Clip finishing; see comments.
 			public void run() {
 				try {
 					Clip clip = AudioSystem.getClip();
@@ -133,6 +137,23 @@ public class Main extends PApplet{
 							Main.class.getResourceAsStream("/res/" + url + ".wav"));
 					clip.open(inputStream);
 					clip.start();
+				} catch (Exception e) {
+					System.out.println("Can't find " + url + "!");
+				}
+			}
+		}).start();
+	}
+	
+	public static synchronized void music(final String url) {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+							Main.class.getResourceAsStream("/res/" + url + ".wav"));
+					clip.open(inputStream);
+					clip.start();
+					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
 				}

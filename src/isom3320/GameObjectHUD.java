@@ -34,6 +34,7 @@ public class GameObjectHUD extends GameObject {
 
 	@Override
 	public void render(double framestep) {
+		R.textFont(Main.font);
 		R.rectMode(0);
 		R.fill(255,0,0);
 		R.rect(0, Main.HEIGHT*0.4F, redHealthWidth, redHealthHeight);

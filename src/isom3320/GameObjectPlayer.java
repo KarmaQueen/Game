@@ -62,7 +62,11 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 					Vector velocity = Vector.createFromAngle(getAngle(), getGun().getSpeed());
 					double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
 					float damage = getGun().getDamage();
-					state.spawn(new GameObjectBullet(this, spawnPoint, velocity, randomness, damage));
+					GameObjectBullet b = new GameObjectBullet(this, spawnPoint, velocity, randomness, damage);
+					
+					if(gun.getName().equals("awp")) b.setSize(10);
+					
+					state.spawn(b);
 					
 					//awp users get recoiled
 					if("awp".equals(getGun().getName()))
