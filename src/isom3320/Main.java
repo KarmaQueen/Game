@@ -2,6 +2,7 @@ package isom3320;
 
 import processing.core.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class Main extends PApplet{
 
 	public static Random rand;
 
-	public static int[] highscores;
+	public static ArrayList<Integer> highscores;
 
 	public static void main(String[] args) {
 		WIDTH = 1280;
@@ -33,9 +34,10 @@ public class Main extends PApplet{
 
 		PApplet.main(new String[] {"isom3320.Main"});
 
-		highscores = new int[10];
-
-
+		highscores = new ArrayList<Integer>();
+		highscores.add(0);
+		highscores.add(0);
+		highscores.add(0);
 	}
 
 	@Override
