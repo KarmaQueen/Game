@@ -9,8 +9,11 @@ public class GameObjectEnemy extends GameObject {
 	private long time;
 	private double speedA, speedB;
 	
+	private long cantHitPlayerUntil;
+	
 	public GameObjectEnemy(Vector v, double angle) {
 		super(v, angle);
+		cantHitPlayerUntil = 0;
 	}
 	
 	@Override
@@ -26,6 +29,11 @@ public class GameObjectEnemy extends GameObject {
 		motion = motion.add(Math.random() - 0.5,Math.random() - 0.5).scalar(speedA);
 		lookAt(player);
 		motion = motion.add(Vector.createFromAngle(angle, speedB));
+		
+		if(collidesWith(player) && cantHitPlayerUntil <= System.currentTimeMillis()){
+			player.damage(20);
+			cantHitPlayerUntil = System.currentTimeMillis() + 500;
+		}
 	}
 	
 	@Override

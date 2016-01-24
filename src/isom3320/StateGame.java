@@ -64,12 +64,6 @@ public class StateGame extends State{
 			if(go.isDead()){
 				gameobjects.remove(i);
 			}
-			if(go.collidesWith(player)){
-				if(go instanceof GameObjectEnemy){
-					player.damage(20);
-					player.cantBeHitFor(500);
-				}
-			}
 		}
 		
 		if(rand.nextInt((120 - (int)(0.0005*(System.currentTimeMillis() - gameStartTime)))) == 0){
@@ -77,6 +71,10 @@ public class StateGame extends State{
 		}
 		if(rand.nextInt(130) == 0){
 			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
+		}
+		
+		if(player.getHealth() <= 0){
+			GameObject.R.changeState(new StateGameOver(score));
 		}
 	}
 

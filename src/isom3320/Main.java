@@ -33,7 +33,7 @@ public class Main extends PApplet{
 
 		PApplet.main(new String[] {"isom3320.Main"});
 
-		highscores = new int[3];
+		highscores = new int[10];
 
 
 	}
