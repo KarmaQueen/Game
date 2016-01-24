@@ -10,10 +10,10 @@ public abstract class GameObject {
 	public static StateGame state;
 	
 	protected Vector pos, pPos, motion; 
-	
 	protected double angle, motionMult;
 	protected float size, health, maxHealth;
 	protected boolean isDead, isMoving;
+	protected long cantBeHitUntil;
 	protected Color color;
 
 	public GameObject(){
@@ -38,6 +38,7 @@ public abstract class GameObject {
 		color = Color.create(255, 255, 255);
 		size = 25;
 		maxHealth = health = 100;
+		cantBeHitUntil = 0;
 		init();
 	}
 	
@@ -163,10 +164,14 @@ public abstract class GameObject {
 		health = Math.min(maxHealth, health + f);
 	}
 	public void damage(float f){
+		if(cantBeHitUntil >= System.currentTimeMillis()) return;
 		if(f >= health) health = 0;
 		else {
 			health -= f;
 		}
+	}
+	public void cantBeHitFor(long n){
+		cantBeHitUntil = n + System.currentTimeMillis();
 	}
 	public float getHealthRatio(){
 		return health/maxHealth;

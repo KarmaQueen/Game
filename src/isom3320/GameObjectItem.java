@@ -1,14 +1,37 @@
 package isom3320;
 
-public class GameObjectItem extends GameObject {
+import processing.core.PImage;
 
+public class GameObjectItem extends GameObject {
+	
+	public static String[] effects = new String[]{
+			"maxAmmo","invulnerability","maxHealth", "nuke"
+	};
+	
 	private String effect;
 	private static GameObjectPlayer player;
 	private double size;
+	
+	private PImage img;
 
 	public GameObjectItem(String effect, Vector pos){
 		super(pos);
 		this.effect = effect;
+		for(int i = 0; i < GameObjectGun.name.length; i++){
+			if(GameObjectGun.name[i].equals(effect))
+				color = GameObjectGun.colors[i];
+		}
+	}
+	public GameObjectItem(Vector pos){
+		super(pos);
+		if(Main.rand.nextBoolean()){
+			effect = effects[Main.rand.nextInt(effects.length)];
+			img = R.loadImage(effect + ".png");
+			img.resize((int)size, (int)size);
+		} else {
+			effect = GameObjectGun.name[Main.rand.nextInt(GameObjectGun.name.length)];
+			img = null;
+		}
 		for(int i = 0; i < GameObjectGun.name.length; i++){
 			if(GameObjectGun.name[i].equals(effect))
 				color = GameObjectGun.colors[i];
@@ -35,9 +58,24 @@ public class GameObjectItem extends GameObject {
 				}
 			}
 			switch(effect){
-			
+			case "maxHealth": 
+				player.heal(player.getMaxHealth());
+				break;
+			case "maxAmmo": 
+				player.getGun().setAmmo(player.getGun().getMaxAmmo());
+				break;
+			case "invulnerability":
+				player.cantBeHitFor(5000L);
+				break;
+			case "nuke":
+				for(GameObject go : state.gameobjects)
+					go.kill();
+				player.damage(player.getHealth()/2);
+				break;
 			default: break;
 			}
+			Main.playSound(effect);
+			kill();
 		}
 	}
 
@@ -49,7 +87,10 @@ public class GameObjectItem extends GameObject {
 	@Override
 	public void render(double framestep) {
 		setColorAsFill();
-		R.ellipse(getXF(), getYF(), (float)size, (float)size);
+		if(img != null)
+			R.image(img, getXF() - (float)size*0.5F, getYF() - (float)size*0.5F);
+		else
+			R.ellipse(getXF(), getYF(), (float)size, (float)size);
 	}
 
 }

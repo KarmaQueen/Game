@@ -6,10 +6,12 @@ public class StateGame extends State{
 	
 	private GameObjectPlayer player;
 	//private GameMap map;
-	private ArrayList<GameObject> gameobjects;
+	public ArrayList<GameObject> gameobjects;
 	private ArrayList<GameObjectBullet> bullets;
 	public static int score;
 	public long invulnerabilityTimer;
+	
+	private long gameStartTime;
 
 	public void init(){
 		player = new GameObjectPlayer();
@@ -27,7 +29,9 @@ public class StateGame extends State{
 		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
 		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
 		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
-		this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
+		//this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
+		
+		gameStartTime = System.currentTimeMillis();
 	}
 
 	@Override
@@ -62,23 +66,19 @@ public class StateGame extends State{
 			}
 			if(go.collidesWith(player)){
 				if(go instanceof GameObjectEnemy){
-					
-					if(invulnerabilityTimer <= System.currentTimeMillis()){
-						player.damage(15);
-						invulnerabilityTimer = System.currentTimeMillis() + 500;
-					}
-					
+					player.damage(15);
+					player.cantBeHitFor(500);
 				} else if(go instanceof GameObjectItem){
 					player.heal(0.25F);
 				}
 			}
 		}
 		
-		if(rand.nextInt(100) == 0){
-			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
+		if(rand.nextInt((120 - (int)(0.0005*(System.currentTimeMillis() - gameStartTime)))) == 0){
+			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0).setPos(Vector.random(player.getPos(), 500, 1000)));
 		}
-		if(rand.nextInt(50) == 0){
-			//spawn(new GameObjectEnemyShooter(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0));
+		if(rand.nextInt(130) == 0){
+			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
 		}
 	}
 

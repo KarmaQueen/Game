@@ -16,6 +16,11 @@ public class GameObjectGun extends GameObject {
 	private Shooter user;
 	private long cantShootFor;
 	
+	protected boolean isShooting; //checks whether gun should be shooting or not
+	private long shootTimer; //used to slow down shots
+	private long rldTimer; //used to disable shooting
+	
+	
 	public GameObjectGun(String s, Shooter user){
 		for(int i = 0; i < name.length; i++){
 			if(s.equals(name[i])){
@@ -115,6 +120,10 @@ public class GameObjectGun extends GameObject {
 	
 	public boolean gunCanShoot(){
 		return cantShootFor <= System.currentTimeMillis();
+	}
+
+	public void setAmmo(int maxAmmo){
+		currentAmmo = maxAmmo;
 	}
 
 }

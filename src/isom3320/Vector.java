@@ -27,6 +27,9 @@ public class Vector {
 	public static Vector random(){
 		return create(Math.random() - 0.5D, Math.random() - 0.5D).normalize(1);
 	}
+	public static Vector random(Vector pos, double innerBound, double outerBound){
+		return Vector.createFromAngle(2*Math.PI*Math.random(), Main.randomWithRange(innerBound, outerBound)).add(pos);
+	}
 
 	//Class Definition
 	private double xCoord, yCoord;
@@ -136,6 +139,8 @@ public class Vector {
 	public boolean equals(Vector v){
 		return xCoord == v.xCoord && yCoord == v.yCoord;
 	}
+	
+
 }
 
 
