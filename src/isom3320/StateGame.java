@@ -66,10 +66,8 @@ public class StateGame extends State{
 			}
 			if(go.collidesWith(player)){
 				if(go instanceof GameObjectEnemy){
-					player.damage(15);
+					player.damage(20);
 					player.cantBeHitFor(500);
-				} else if(go instanceof GameObjectItem){
-					player.heal(0.25F);
 				}
 			}
 		}
