@@ -75,6 +75,7 @@ public class GameObjectItem extends GameObject {
 				break;
 			case "maxAmmo": 
 				player.getGun().setAmmo(player.getGun().getMaxAmmo());
+				player.cantShootFor(-10000);
 				break;
 			case "invulnerability":
 				player.cantBeHitFor(5000L);
