@@ -51,6 +51,7 @@ public class StateGame extends State{
 			b.update();
 			for(GameObject go : gameobjects){
 				if(b.collidesWith(go)){
+					if(!(go instanceof GameObjectEnemy)) continue;
 					if(!b.getOrigin().equals(go))
 					go.damage((float) b.getBulletDamage());
 					if(!player.getGun().getName().equals("awp"))

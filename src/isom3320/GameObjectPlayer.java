@@ -96,7 +96,6 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		
 		if(!Vector.ZERO.equals(tempMotion))
 			tempMotion = tempMotion.normalize(0.4);
-		System.out.println(tempMotion);
 		if(R.mousePressed){
 			tempMotion.scalar(0.4);
 			randIncreaser = Math.min(randIncreaser + 2D, 8D);

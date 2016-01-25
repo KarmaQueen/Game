@@ -25,8 +25,6 @@ public class Main extends PApplet{
 
 	public static Random rand;
 
-	public static ArrayList<Integer> highscores;
-	
 	public static PFont font;
 	
 	private static Clip clip;
@@ -37,13 +35,6 @@ public class Main extends PApplet{
 		rand = new Random();
 
 		PApplet.main(new String[] {"isom3320.Main"});
-
-		highscores = new ArrayList<Integer>();
-		highscores.add(0);
-		highscores.add(0);
-		highscores.add(0);
-		
-		//Main.playSound("music");
 	}
 
 	@Override

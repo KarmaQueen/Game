@@ -122,8 +122,8 @@ public class GameObjectGun extends GameObject {
 		return cantShootFor <= System.currentTimeMillis();
 	}
 
-	public void setAmmo(int maxAmmo){
-		currentAmmo = maxAmmo;
+	public void setAmmo(int ammo){
+		currentAmmo = ammo;
 	}
 
 }
