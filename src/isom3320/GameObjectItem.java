@@ -7,10 +7,15 @@ public class GameObjectItem extends GameObject {
 	public static String[] effects = new String[]{
 			"maxAmmo","invulnerability","maxHealth", "nuke"
 	};
+	public static float[] probability = new float[]{
+			     0.4F,             0.2F,       0.3F,    0.1F
+	};
 	
 	private String effect;
 	private static GameObjectPlayer player;
 	private double size;
+	
+	private long despawnTimer;
 	
 	private PImage img;
 
@@ -24,8 +29,8 @@ public class GameObjectItem extends GameObject {
 	}
 	public GameObjectItem(Vector pos){
 		super(pos);
-		if(Main.rand.nextBoolean()){
-			effect = effects[Main.rand.nextInt(effects.length)];
+		if(Main.rand.nextBoolean() || Main.rand.nextBoolean()){
+			effect = effects[this.getRandomEffectIndex()];
 			img = R.loadImage(effect + ".png");
 			img.resize((int)size, (int)size);
 		} else {
@@ -41,6 +46,7 @@ public class GameObjectItem extends GameObject {
 	@Override
 	public void init(){
 		size = 40;
+		despawnTimer = System.currentTimeMillis() + 7000;
 	}
 	
 	public static void setPlayer(GameObjectPlayer player){
@@ -77,6 +83,7 @@ public class GameObjectItem extends GameObject {
 			Main.playSound(effect);
 			kill();
 		}
+		if(despawnTimer <= System.currentTimeMillis()) kill();
 	}
 
 	private boolean playerIsNear() {
@@ -91,6 +98,18 @@ public class GameObjectItem extends GameObject {
 			R.image(img, getXF() - (float)size*0.5F, getYF() - (float)size*0.5F);
 		else
 			R.ellipse(getXF(), getYF(), (float)size, (float)size);
+	}
+	
+	private int getRandomEffectIndex(){
+		double d = Math.random();
+		double sum = 0;
+		
+		for(int i = 0; i < effects.length; i++){
+			sum += probability[i];
+			
+			if(d <= sum) return i;
+		}
+		return 0;
 	}
 
 }

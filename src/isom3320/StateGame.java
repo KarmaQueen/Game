@@ -21,7 +21,6 @@ public class StateGame extends State{
 		invulnerabilityTimer = 0;
 
 		//map = new GameMap(null); //TODO: later change null to something else
-		player.setGun(new GameObjectGun("ak47", player));
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
 		GameObjectEnemy.player = player;
@@ -77,7 +76,7 @@ public class StateGame extends State{
 			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
 		}
 		if(player.getHealth() <= 0){
-			GameObject.R.changeState(new StateGameOver(killScore + timeScore));
+			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}
 	}
 

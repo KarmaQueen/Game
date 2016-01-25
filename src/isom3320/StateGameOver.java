@@ -6,15 +6,16 @@ import processing.core.PConstants;
 
 public class StateGameOver extends State {
 	
-	private int yourScore;
+	private int killScore, timeScore;
 	
-	public StateGameOver(int score){
-		yourScore = score;
+	public StateGameOver(int killScore, int timeScore){
+		this.killScore = killScore;
+		this.timeScore = timeScore;
 	}
 	
 	@Override
 	public void init() {
-		Main.highscores.add(yourScore);
+		Main.highscores.add(killScore + timeScore);
 		Collections.sort(Main.highscores);
 		Collections.reverse(Main.highscores);
 		Main.playSound("victory");
@@ -41,10 +42,12 @@ public class StateGameOver extends State {
 		GameObject.R.text("Game Over", Main.WIDTH*0.5F, Main.HEIGHT/8);
 		
 		GameObject.R.textSize(60);
-		GameObject.R.text(yourScore, Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150);
+		GameObject.R.text(killScore +timeScore, Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150);
 		
 		GameObject.R.textSize(20);
-		GameObject.R.text("Your Score:", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 - 60);
+		GameObject.R.text("Your Score:", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 - 70);
+		
+		GameObject.R.text("You survived for " + timeScore + " seconds!", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 +60);
 		
 		float yval = Main.HEIGHT * 0.25F;
 		
@@ -57,7 +60,7 @@ public class StateGameOver extends State {
 		GameObject.R.textAlign(PConstants.LEFT);
 		for(int i = 0; i < Main.highscores.size(); i++){
 			int score = Main.highscores.get(i);
-			if(yourScore == score) {
+			if(killScore + timeScore == score) {
 				GameObject.R.textSize(40);
 				GameObject.R.fill(255, 50, 50);
 				yval += 60;

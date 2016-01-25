@@ -19,7 +19,8 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 	public void init(){
 		setPos(Main.WIDTH/2, Main.HEIGHT/2);
 		
-		gun = new GameObjectGun("ak47", this);
+		String randomGun = GameObjectGun.name[(int)(Math.random()*GameObjectGun.name.length)];
+		gun = new GameObjectGun(randomGun, this);
 		
 		hud = new GameObjectHUD(this);
 		hud.setPos(pos.addY(100));
@@ -91,11 +92,18 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		if(Main.isPressed('s')) tempMotion = tempMotion.addY(+0.4);
 		if(Main.isPressed('a')) tempMotion = tempMotion.addX(-0.4);
 		if(Main.isPressed('d')) tempMotion = tempMotion.addX(+0.4);
+		
+		
+		if(!Vector.ZERO.equals(tempMotion))
+			tempMotion = tempMotion.normalize(0.4);
+		System.out.println(tempMotion);
 		if(R.mousePressed){
 			tempMotion.scalar(0.4);
 			randIncreaser = Math.min(randIncreaser + 2D, 8D);
 
 		}
+		
+		
 		motion = motion.add(tempMotion);
 
 		//Handles Reloading
