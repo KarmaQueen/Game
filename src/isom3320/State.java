@@ -2,10 +2,13 @@ package isom3320;
 
 import java.util.Random;
 
+import processing.core.PApplet;
+
 public abstract class State {
 	
 	protected static Random rand;
 	protected State nextState;
+	protected static Main R;
 
 	public abstract void init();
 	

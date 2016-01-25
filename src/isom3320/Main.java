@@ -28,6 +28,8 @@ public class Main extends PApplet{
 	public static ArrayList<Integer> highscores;
 	
 	public static PFont font;
+	
+	private static Clip clip;
 
 	public static void main(String[] args) {
 		WIDTH = 1280;
@@ -42,7 +44,6 @@ public class Main extends PApplet{
 		highscores.add(0);
 		
 		//Main.playSound("music");
-		music("music");
 	}
 
 	@Override
@@ -53,11 +54,12 @@ public class Main extends PApplet{
 	@Override
 	public void setup(){
 		smooth();
-		changeState(new StateGame());
+		changeState(new StateMenu());
 		GameObject.R = this;
 		initInputs();
 		State.rand = rand;
-		font = createFont("dimitri.ttf", 50);
+		State.R = this;
+		font = createFont("dimitri.ttf", 300);
 	}
 
 	@Override
@@ -148,7 +150,7 @@ public class Main extends PApplet{
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Clip clip = AudioSystem.getClip();
+					clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
 							Main.class.getResourceAsStream("/res/" + url + ".wav"));
 					clip.open(inputStream);
@@ -159,6 +161,10 @@ public class Main extends PApplet{
 				}
 			}
 		}).start();
+	}
+	
+	public static synchronized void stopMusic(){
+		clip.stop();
 	}
 	
 	public static double randomWithRange(double min, double max)

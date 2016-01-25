@@ -32,11 +32,14 @@ public class StateGame extends State{
 		//this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
 		
 		gameStartTime = System.currentTimeMillis();
+		
+		Main.music("music");
 	}
 
 	@Override
 	public void deinit() {
 		GameObject.state = null;
+		Main.stopMusic();
 	}
 
 	@Override
