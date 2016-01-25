@@ -48,7 +48,7 @@ public class GameObjectHUD extends GameObject {
 		
 		R.fill(255,255,255);
 		R.textSize(20);
-		R.text("Score: " + StateGame.score, (float)(-34), (float)(Main.HEIGHT*0.47));
+		R.text("Score: " + (StateGame.killScore + StateGame.timeScore), (float)(-34), (float)(Main.HEIGHT*0.47));
 		
 		if(ammo > 7)
 			R.fill(0);

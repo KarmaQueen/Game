@@ -34,6 +34,7 @@ public class StateGameOver extends State {
 
 	@Override
 	public void render(double framestep) {
+		GameObject.R.fill(255);
 		GameObject.R.textFont(Main.font);
 		GameObject.R.textAlign(PConstants.CENTER);
 		GameObject.R.textSize(50);

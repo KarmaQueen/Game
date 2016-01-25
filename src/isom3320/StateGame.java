@@ -8,7 +8,7 @@ public class StateGame extends State{
 	//private GameMap map;
 	public ArrayList<GameObject> gameobjects;
 	private ArrayList<GameObjectBullet> bullets;
-	public static int score;
+	public static int killScore, timeScore;
 	public long invulnerabilityTimer;
 	
 	private long gameStartTime;
@@ -17,7 +17,7 @@ public class StateGame extends State{
 		player = new GameObjectPlayer();
 		gameobjects = new ArrayList<GameObject>();
 		bullets = new ArrayList<GameObjectBullet>();
-		score = 0;
+		killScore = timeScore = 0;
 		invulnerabilityTimer = 0;
 
 		//map = new GameMap(null); //TODO: later change null to something else
@@ -41,6 +41,7 @@ public class StateGame extends State{
 
 	@Override
 	public void update() {
+		timeScore = (int) (System.currentTimeMillis() - gameStartTime)/1000;
 		player.update();
 		
 		for(int i = bullets.size() - 1; i >= 0; i--){
@@ -73,7 +74,7 @@ public class StateGame extends State{
 			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
 		}
 		if(player.getHealth() <= 0){
-			GameObject.R.changeState(new StateGameOver(score));
+			GameObject.R.changeState(new StateGameOver(killScore + timeScore));
 		}
 	}
 
