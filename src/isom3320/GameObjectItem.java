@@ -93,6 +93,7 @@ public class GameObjectItem extends GameObject {
 			damage(0.5F);
 			despawnTimer = System.currentTimeMillis() + 100;
 		}
+		if(health <= 0) kill();
 	}
 
 	private boolean playerIsNear() {

@@ -31,4 +31,12 @@ public class Highscore {
 	public static int get(int i){
 		return scores.get(i);
 	}
+	
+	public static void readFromFile(){
+		//TODO: read highscore.txt or something
+	}
+	
+	public static void writeToFile(){
+		//TODO: write to highscore.txt or something
+	}
 }

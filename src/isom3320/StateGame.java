@@ -12,6 +12,8 @@ public class StateGame extends State{
 	public long invulnerabilityTimer;
 	
 	private long gameStartTime;
+	
+	private boolean flag;
 
 	public void init(){
 		player = new GameObjectPlayer();
@@ -28,6 +30,8 @@ public class StateGame extends State{
 		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
 		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
 		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
+		this.spawn(new GameObjectItem("mag7", Vector.create(400, 700)));
+		
 		//this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
 		
 		gameStartTime = System.currentTimeMillis();
@@ -45,6 +49,20 @@ public class StateGame extends State{
 	public void update() {
 		timeScore = (int) (System.currentTimeMillis() - gameStartTime)/1000;
 		player.update();
+		
+		if(Main.isPressed('m')){
+			if(flag){
+				
+				if(Main.musicPlaying){
+					Main.clip.stop();
+					Main.musicPlaying = false;
+				}
+				else
+					Main.music("music");
+				
+				flag = false;
+			}
+		} else flag = true;
 		
 		for(int i = bullets.size() - 1; i >= 0; i--){
 			GameObjectBullet b = bullets.get(i);
@@ -79,6 +97,8 @@ public class StateGame extends State{
 		if(player.getHealth() <= 0){
 			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}
+		
+		
 	}
 
 	@Override

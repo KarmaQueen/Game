@@ -27,7 +27,8 @@ public class Main extends PApplet{
 
 	public static PFont font;
 	
-	private static Clip clip;
+	public static Clip clip;
+	public static boolean musicPlaying;
 
 	public static void main(String[] args) {
 		WIDTH = 1280;
@@ -98,6 +99,9 @@ public class Main extends PApplet{
 
 		inputs.put('r', false);
 		inputs.put('R', false);
+		
+		inputs.put('m', false);
+		inputs.put('M', false);
 	}
 
 	@Override
@@ -152,6 +156,7 @@ public class Main extends PApplet{
 				}
 			}
 		}).start();
+		musicPlaying = true;
 	}
 	
 	public static synchronized void stopMusic(){
