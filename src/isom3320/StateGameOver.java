@@ -28,7 +28,7 @@ public class StateGameOver extends State {
 	@Override
 	public void update() {
 		if(GameObject.R.keyPressed)
-			if(GameObject.R.key == 'r' || GameObject.R.key == 'R')
+			if(GameObject.R.key == ' ')
 				GameObject.R.changeState(new StateGame());
 	}
 
@@ -45,7 +45,7 @@ public class StateGameOver extends State {
 		
 		GameObject.R.textSize(20);
 		GameObject.R.textAlign(PConstants.CENTER);
-		GameObject.R.text("P r e s s   R   t o   p l a y   a g a i n!", Main.WIDTH/2, yval);
+		GameObject.R.text("P r e s s   S p a c e   t o   p l a y   a g a i n!", Main.WIDTH/2, yval);
 		
 		yval += 40;
 		
