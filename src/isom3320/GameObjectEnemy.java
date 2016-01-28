@@ -32,6 +32,7 @@ public class GameObjectEnemy extends GameObject {
 
 		if(collidesWith(player) && cantHitPlayerUntil <= System.currentTimeMillis()){
 			player.damage(20);
+			Main.playSound("hit");
 			cantHitPlayerUntil = System.currentTimeMillis() + 500;
 		}
 	}

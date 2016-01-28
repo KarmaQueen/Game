@@ -2,9 +2,6 @@ package isom3320;
 
 import processing.core.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -12,8 +9,7 @@ import java.util.Random;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
 
 public class Main extends PApplet{
 
@@ -31,7 +27,7 @@ public class Main extends PApplet{
 	
 	public static Clip clip;
 	public static boolean musicPlaying;
-
+	
 	public static void main(String[] args) {
 		WIDTH = 1280;
 		HEIGHT = 800;
@@ -154,8 +150,6 @@ public class Main extends PApplet{
 							Main.class.getResourceAsStream("/res/" + url));
 					clip.open(inputStream);
 					clip.start();
-					
-					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
 				}
@@ -166,5 +160,6 @@ public class Main extends PApplet{
 	
 	public static synchronized void stopMusic(){
 		clip.stop();
+		musicPlaying = false;
 	}
 }

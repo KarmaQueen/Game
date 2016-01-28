@@ -52,7 +52,7 @@ public class StateMenu extends State {
 		R.textFont(Main.font);
 		R.textSize(130);
 		R.fill(100, 0, 255);
-		R.text("Totally Not CS:GO", WIDTH*0.5F, HEIGHT*0.3F);
+		R.text("Dead Center", WIDTH*0.5F, HEIGHT*0.3F);
 		
 		R.textSize(30);
 		R.fill(255);

@@ -31,7 +31,7 @@ public class StateGame extends State{
 		gameStartTime = System.currentTimeMillis();
 		
 		Main.stopMusic();
-		Main.music("music" + (MathHelper.rand.nextInt(4)+1) + ".mp3");
+		Main.music("music.wav");
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class StateGame extends State{
 					Main.musicPlaying = false;
 				}
 				else
-					Main.music("music");
+					Main.music("music.wav");
 				
 				flag = false;
 			}
