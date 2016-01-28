@@ -6,7 +6,6 @@ public class GameObjectEnemy extends GameObject {
 
 	public static GameObjectPlayer player;
 
-	private long time;
 	private double speedA, speedB;
 
 	private long cantHitPlayerUntil;
@@ -18,7 +17,6 @@ public class GameObjectEnemy extends GameObject {
 
 	@Override
 	public void init(){
-		time = System.currentTimeMillis();
 		speedA = Math.random() * 0.4;
 		speedB = Math.random() * 1.75;
 	}
