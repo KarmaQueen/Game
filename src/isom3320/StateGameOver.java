@@ -73,8 +73,9 @@ public class StateGameOver extends State {
 		
 		yval += 40;
 		
+		//Ranking
 		GameObject.R.textAlign(PConstants.LEFT);
-		for(int i = 0; i < Highscore.getNumScores(); i++){
+		for(int i = 0; i < (int)Math.min(10, Highscore.getNumScores()); i++){
 			int score = Highscore.get(i);
 			if(Highscore.getScore() == score) {
 				GameObject.R.textSize(40);
