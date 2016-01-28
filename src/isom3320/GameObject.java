@@ -126,6 +126,7 @@ public abstract class GameObject {
 	}
 	public void kill() {
 		this.isDead = true;
+		health = 0;
 	}
 	public Vector getMotion() {
 		return motion;
@@ -144,8 +145,8 @@ public abstract class GameObject {
 		Vector v = pos.add(motion);
 		Vector v2 = go.pos.add(go.motion);
 		double distSq = Vector.getDistanceSq(v, v2);
-		double radius = this.size + go.size;
-		return distSq < radius*radius;
+		double radiusSq = this.size*this.size + go.size*go.size;
+		return distSq < radiusSq;
 	}
 	
 	//Health methods

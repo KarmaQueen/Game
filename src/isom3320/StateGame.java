@@ -46,13 +46,9 @@ public class StateGame extends State{
 		player.update();
 
 		if(Main.isPressed('m')){
-			player.kill();
 			if(flag){
 
-				if(Main.musicPlaying){
-					Main.clip.stop();
-					Main.musicPlaying = false;
-				}
+				if(Main.musicPlaying) Main.stopMusic();
 				else Main.music("music.wav");
 
 				flag = false;
@@ -100,7 +96,7 @@ public class StateGame extends State{
 		}
 
 		//Game Over
-		if(player.getHealth() <= 0){
+		if(player.isDead()){
 			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}
 
