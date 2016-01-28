@@ -12,31 +12,32 @@ public class StateGame extends State{
 	public long invulnerabilityTimer;
 	
 	private long gameStartTime;
+	
+	private boolean flag;
 
 	public void init(){
 		player = new GameObjectPlayer();
+		player.cantShootFor(1000);
 		gameobjects = new ArrayList<GameObject>();
 		bullets = new ArrayList<GameObjectBullet>();
 		killScore = timeScore = 0;
 		invulnerabilityTimer = 0;
-
-		//map = new GameMap(null); //TODO: later change null to something else
-		player.setGun(new GameObjectGun("ak47", player));
+		
+		//setting player as static targets for other objects
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
 		GameObjectEnemy.player = player;
 		
-		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
-		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
-		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
-		//this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
-		
 		gameStartTime = System.currentTimeMillis();
+		
+		Main.stopMusic();
+		Main.music("music.wav");
 	}
 
 	@Override
 	public void deinit() {
 		GameObject.state = null;
+		Main.stopMusic();
 	}
 
 	@Override
@@ -44,11 +45,26 @@ public class StateGame extends State{
 		timeScore = (int) (System.currentTimeMillis() - gameStartTime)/1000;
 		player.update();
 		
+		if(Main.isPressed('m')){
+			if(flag){
+				
+				if(Main.musicPlaying){
+					Main.clip.stop();
+					Main.musicPlaying = false;
+				}
+				else
+					Main.music("music.wav");
+				
+				flag = false;
+			}
+		} else flag = true;
+		
 		for(int i = bullets.size() - 1; i >= 0; i--){
 			GameObjectBullet b = bullets.get(i);
 			b.update();
 			for(GameObject go : gameobjects){
 				if(b.collidesWith(go)){
+					if(!(go instanceof GameObjectEnemy)) continue;
 					if(!b.getOrigin().equals(go))
 					go.damage((float) b.getBulletDamage());
 					if(!player.getGun().getName().equals("awp"))
@@ -74,8 +90,10 @@ public class StateGame extends State{
 			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
 		}
 		if(player.getHealth() <= 0){
-			GameObject.R.changeState(new StateGameOver(killScore + timeScore));
+			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}
+		
+		
 	}
 
 	@Override

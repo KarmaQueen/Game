@@ -2,16 +2,18 @@ package isom3320;
 
 public class GameObjectGun extends GameObject {
 	
-	public static String[] name =     new String[]{"ak47",  "awp","m4a1s"};
-	public static float[] damage =     new float[]{    34,   1000,     50};
-	public static long[] delayPerShot = new long[]{   100,   1500,    130};
-	public static double[] speed =    new double[]{    15,     30,     15};
-	public static int[] maxAmmo =        new int[]{    40,     10,     30};
-	public static long[] reloadTimer =  new long[]{  1500,   1900,   1500};
+	public static String[] name =     new String[]{"ak47",  "awp","m4a1s", "mag7"};
+	public static float[] damage =     new float[]{    34,   1000,     50,     34};
+	public static long[] delayPerShot = new long[]{   100,   1500,    130,    450};
+	public static double[] speed =    new double[]{    15,     30,     15,     15};
+	public static int[] maxAmmo =        new int[]{    40,     10,     20,      7};
+	public static long[] reloadTimer =  new long[]{  1500,   1900,   1500,   1900};
+	public static int[] numBullets =     new int[]{     1,      1,      1,      6};
 	public static Color[] colors = new Color[]{
 			Color.create(121, 67, 54), 
 			Color.create(0, 140, 0),
-			Color.create(0, 0, 200)};
+			Color.create(0, 0, 200),
+			Color.create(100, 120, 160)};
 	private int index, currentAmmo;
 	private Shooter user;
 	private long cantShootFor;
@@ -55,8 +57,13 @@ public class GameObjectGun extends GameObject {
 			break;
 		case "awp":
 			R.rect(25, 5, 50, 5);
+			break;
 		case "m4a1s":
 			R.rect(15, 5, 30, 4);
+			break;
+		case "mag7":
+			R.rect(15, 5, 25, 6);
+			break;
 		}	
 	}
 	
@@ -122,8 +129,12 @@ public class GameObjectGun extends GameObject {
 		return cantShootFor <= System.currentTimeMillis();
 	}
 
-	public void setAmmo(int maxAmmo){
-		currentAmmo = maxAmmo;
+	public void setAmmo(int ammo){
+		currentAmmo = ammo;
+	}
+	
+	public int getNumBullets(){
+		return numBullets[this.index];
 	}
 
 }

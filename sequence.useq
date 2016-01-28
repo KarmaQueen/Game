@@ -1,2 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sequence-diagram version="1.1.9" icons="true"/>
+<sequence-diagram version="1.1.9" icons="true">  
+  <object id="1" language="java" name="isom3320.Main" project="Game" file="/Game/src/isom3320/Main.java" binary="false" 
+    label="main" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="173" y="0"/>    
+    <execution id="2">      
+      <position height="63" width="56" x="5" y="102"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="isom3320.StateMenu" project="Game" file="/Game/src/isom3320/StateMenu.java" 
+    binary="false" label="stateMenu" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="250" y="0"/>    
+    <execution id="4">      
+      <position height="21" width="96" x="65" y="123"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="63" width="96" x="65" y="167"/>    
+    </execution>  
+  </object>  
+  <object id="9" language="java" name="isom3320.StateGame" project="Game" file="/Game/src/isom3320/StateGame.java" 
+    binary="false" label="stateGame" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="474" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="97" x="165" y="188"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="63" width="97" x="165" y="242"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="21" width="97" x="165" y="373"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="isom3320.StateGameOver" project="Game" 
+    file="/Game/src/isom3320/StateGameOver.java" binary="false" label="stateGameOver" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="359" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="129" x="266" y="263"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="63" width="129" x="266" y="352"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="StateMenu()" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="StateGame()" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="11" operation="StateGameOver(int)" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="16" operation="StateGame()" asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>
+</sequence-diagram>

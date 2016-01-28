@@ -2,7 +2,6 @@ package isom3320;
 
 import processing.core.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -10,6 +9,7 @@ import java.util.Random;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+
 
 public class Main extends PApplet{
 
@@ -23,26 +23,17 @@ public class Main extends PApplet{
 
 	public static Map<Character, Boolean> inputs;
 
-	public static Random rand;
-
-	public static ArrayList<Integer> highscores;
-	
 	public static PFont font;
-
+	
+	public static Clip clip;
+	public static boolean musicPlaying;
+	
 	public static void main(String[] args) {
 		WIDTH = 1280;
 		HEIGHT = 800;
-		rand = new Random();
+		MathHelper.rand = new Random();
 
 		PApplet.main(new String[] {"isom3320.Main"});
-
-		highscores = new ArrayList<Integer>();
-		highscores.add(0);
-		highscores.add(0);
-		highscores.add(0);
-		
-		//Main.playSound("music");
-		music("music");
 	}
 
 	@Override
@@ -53,11 +44,14 @@ public class Main extends PApplet{
 	@Override
 	public void setup(){
 		smooth();
-		changeState(new StateGame());
+		changeState(new StateMenu());
 		GameObject.R = this;
 		initInputs();
-		State.rand = rand;
-		font = createFont("dimitri.ttf", 50);
+		State.rand = MathHelper.rand;
+		State.R = this;
+		State.WIDTH = WIDTH;
+		State.HEIGHT = HEIGHT;
+		font = createFont("dimitri.ttf", 300);
 	}
 
 	@Override
@@ -105,6 +99,9 @@ public class Main extends PApplet{
 
 		inputs.put('r', false);
 		inputs.put('R', false);
+		
+		inputs.put('m', false);
+		inputs.put('M', false);
 	}
 
 	@Override
@@ -148,23 +145,21 @@ public class Main extends PApplet{
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					Clip clip = AudioSystem.getClip();
+					clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-							Main.class.getResourceAsStream("/res/" + url + ".wav"));
+							Main.class.getResourceAsStream("/res/" + url));
 					clip.open(inputStream);
 					clip.start();
-					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
 				}
 			}
 		}).start();
+		musicPlaying = true;
 	}
 	
-	public static double randomWithRange(double min, double max)
-	{
-	   double range = (max - min);     
-	   return (double)(Math.random() * range) + min;
+	public static synchronized void stopMusic(){
+		clip.stop();
+		musicPlaying = false;
 	}
-
 }
