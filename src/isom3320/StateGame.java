@@ -83,12 +83,18 @@ public class StateGame extends State{
 			}
 		}
 		
+		//Spawn Enemies
 		if(rand.nextInt((120 - (int)(0.0005*(System.currentTimeMillis() - gameStartTime)))) == 0){
-			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0).setPos(Vector.random(player.getPos(), 500, 1000)));
+			Vector random = Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT));
+			spawn(new GameObjectEnemy(random, 0).setPos(Vector.randomWithBounds(player.getPos(), 500, 1000)));
 		}
+		
+		//Spawn Items
 		if(rand.nextInt(130) == 0){
-			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
+			spawn(new GameObjectItem(Vector.randomWithBounds(player.getPos(), 50, 1000)));
 		}
+		
+		//Game Over
 		if(player.getHealth() <= 0){
 			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}

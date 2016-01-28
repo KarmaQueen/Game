@@ -27,7 +27,7 @@ public class Vector {
 	public static Vector random(){
 		return create(Math.random() - 0.5D, Math.random() - 0.5D).normalize(1);
 	}
-	public static Vector random(Vector pos, double innerBound, double outerBound){
+	public static Vector randomWithBounds(Vector pos, double innerBound, double outerBound){
 		return Vector.createFromAngle(2*Math.PI*Math.random(), MathHelper.randomWithRange(innerBound, outerBound)).add(pos);
 	}
 
