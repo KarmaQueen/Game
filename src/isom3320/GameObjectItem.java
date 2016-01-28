@@ -30,6 +30,7 @@ public class GameObjectItem extends GameObject {
 	}
 	public GameObjectItem(Vector pos){
 		super(pos);
+
 		if(MathHelper.rand.nextBoolean() || MathHelper.rand.nextBoolean()){
 			effect = effects[this.getRandomEffectIndex()];
 			img = R.loadImage(effect + ".png");
@@ -37,7 +38,8 @@ public class GameObjectItem extends GameObject {
 			isGun = false;
 		} else {
 			effect = GameObjectGun.name[MathHelper.rand.nextInt(GameObjectGun.name.length)];
-			img = null;
+			img = R.loadImage(effect + ".png");
+			img.resize((int)size, (int)size);
 			isGun = true;
 		}
 		for(int i = 0; i < GameObjectGun.name.length; i++){
@@ -48,8 +50,9 @@ public class GameObjectItem extends GameObject {
 
 	@Override
 	public void init(){
-		size = 40;
+		size = 45;
 		despawnTimer = System.currentTimeMillis();
+		angle = Math.PI * 2 * Math.random();
 	}
 
 	public static void setPlayer(GameObjectPlayer player){
@@ -62,7 +65,6 @@ public class GameObjectItem extends GameObject {
 			for(int i = 0; i < GameObjectGun.name.length; i++){
 				if(GameObjectGun.name[i].equals(effect)){
 					if(player.getGun().getName().equals(effect)){
-						
 						player.getGun().setAmmo(player.getGun().getMaxAmmo());
 						Main.playSound("maxAmmo");
 					} else {
@@ -71,8 +73,8 @@ public class GameObjectItem extends GameObject {
 					}
 				}
 			}
-			
-			
+
+
 			switch(effect){
 			case "maxHealth": 
 				player.heal(player.getMaxHealth()/2);
@@ -101,6 +103,8 @@ public class GameObjectItem extends GameObject {
 			despawnTimer = System.currentTimeMillis() + 100;
 		}
 		if(health <= 0) kill();
+		
+		angle += 0.01F*MathHelper.invPI;
 	}
 
 	private boolean playerIsNear() {
@@ -111,16 +115,29 @@ public class GameObjectItem extends GameObject {
 	@Override
 	public void render(double framestep) {
 		setColorAsFill();
-		if(img != null)
-			R.image(img, getXF() - (float)size*0.5F, getYF() - (float)size*0.5F);
-		else
-			R.ellipse(getXF(), getYF(), (float)size, (float)size);
+		R.imageMode(PConstants.CENTER);
+		if(!isGun)
+			R.image(img, getXF(), getYF());
+		else {
+			
+			//R.ellipse(getXF(), getYF(), (float)size, (float)size);
+			
+			R.pushMatrix();
+			{	
+				R.translate(getXF(), getYF());
+				R.rotate((float) angle);
+				R.image(img, 0, 0);
+			}
+			R.popMatrix();
+		}
+		//R.ellipse(getXF(), getYF(), (float)size, (float)size);
 
 		R.rectMode(PConstants.CORNER);
 		R.fill(40, 40, 255);
 		R.rect(getXF()-20, getYF()-30, 40, 4);
 		R.fill(100, 100,255);
 		R.rect(getXF()-20, getYF()-30, 40*getHealthRatio(), 4);
+
 	}
 
 	private int getRandomEffectIndex(){

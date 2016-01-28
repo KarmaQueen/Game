@@ -92,7 +92,7 @@ public class StateGame extends State{
 
 		//Spawn Items
 		if(rand.nextInt(130) == 0){
-			spawn(new GameObjectItem(Vector.randomWithBounds(player.getPos(), 50, 1000)));
+			spawn(new GameObjectItem(Vector.randomWithBounds(player.getPos(), 200, 1000)));
 		}
 
 		//Game Over
@@ -105,7 +105,7 @@ public class StateGame extends State{
 
 	@Override
 	public void render(double framestep) {
-		GameObject.R.translate(
+		R.translate(
 				Main.WIDTH/2-player.getXF(), 
 				Main.HEIGHT/2-player.getYF());
 		for(GameObjectBullet gob : bullets)
