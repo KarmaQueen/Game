@@ -14,6 +14,9 @@ public class Highscore {
 	public static ArrayList<Integer> scores = new ArrayList<Integer>(10);
 	
 	public static int killScore, timeScore;
+	
+	private static URL url = Main.class.getResource("/data/scores.txt");
+	private static File file;
 
 	public static void addScore(int killScore, int timeScore){
 		Highscore.killScore = killScore;
@@ -41,8 +44,7 @@ public class Highscore {
 	
 	public static void readFromFile(){
 		try {
-			URL url = Main.class.getResource("/data/scores.txt");
-			File file = new File(url.getPath());
+			file = new File(url.getPath());
 			Scanner sc = new Scanner(file);
 			
 			while(sc.hasNextLine())
@@ -52,26 +54,26 @@ public class Highscore {
 			
 		} 
 		catch (FileNotFoundException e) {
+			//TODO: create empty file
 			e.printStackTrace();
 		}
 	}
 	
 	public static void writeToFile(){
 		try {
-			URL url = Main.class.getResource("/data/scores.txt");
-			File oldFile = new File(url.getPath());
-			oldFile.delete();
+			file = new File(url.getPath());
+			file.delete();
 			
-			File newFile = new File(url.getPath());
+			file = new File(url.getPath());
 			try{
-				newFile.createNewFile();
+				file.createNewFile();
 			}
 			catch(IOException ex){
 		        System.out.println (ex.toString());
 		        System.out.println("Could not find file");
 		    }
 			
-			PrintWriter pw = new PrintWriter(newFile);
+			PrintWriter pw = new PrintWriter(file);
 			for(int i = 0; i < scores.size(); i++)
 				pw.println(scores.get(i));
 			
