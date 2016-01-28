@@ -15,7 +15,7 @@ public class GameObjectItem extends GameObject {
 	private String effect;
 	private static GameObjectPlayer player;
 	private double size;
-
+	private boolean isGun;
 	private long despawnTimer;
 
 	private PImage img;
@@ -34,9 +34,11 @@ public class GameObjectItem extends GameObject {
 			effect = effects[this.getRandomEffectIndex()];
 			img = R.loadImage(effect + ".png");
 			img.resize((int)size, (int)size);
+			isGun = false;
 		} else {
 			effect = GameObjectGun.name[MathHelper.rand.nextInt(GameObjectGun.name.length)];
 			img = null;
+			isGun = true;
 		}
 		for(int i = 0; i < GameObjectGun.name.length; i++){
 			if(GameObjectGun.name[i].equals(effect))
@@ -62,13 +64,15 @@ public class GameObjectItem extends GameObject {
 					if(player.getGun().getName().equals(effect)){
 						
 						player.getGun().setAmmo(player.getGun().getMaxAmmo());
-						
+						Main.playSound("maxAmmo");
 					} else {
 						player.setGun(effect);
 						player.cantShootFor(750L);
 					}
 				}
 			}
+			
+			
 			switch(effect){
 			case "maxHealth": 
 				player.heal(player.getMaxHealth()/2);
@@ -87,7 +91,8 @@ public class GameObjectItem extends GameObject {
 				break;
 			default: break;
 			}
-			Main.playSound(effect);
+			if(!isGun)
+				Main.playSound(effect);
 			StateGame.killScore += 5;
 			kill();
 		}

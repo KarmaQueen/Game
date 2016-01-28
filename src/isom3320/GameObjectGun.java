@@ -90,7 +90,7 @@ public class GameObjectGun extends GameObject {
 		}
 		if(!gunCanShoot()) return false;
 		currentAmmo--;
-		Main.playSound(name[index]);
+		
 		cantShootFor(delayPerShot[index]);
 		user.cantShootFor(getDelay());
 		return true;

@@ -46,6 +46,7 @@ public class StateGame extends State{
 		player.update();
 
 		if(Main.isPressed('m')){
+			player.kill();
 			if(flag){
 
 				if(Main.musicPlaying){
@@ -57,7 +58,8 @@ public class StateGame extends State{
 				flag = false;
 			}
 		} else flag = true;
-
+		
+		//Bullet collision
 		for(int i = bullets.size() - 1; i >= 0; i--){
 			GameObjectBullet b = bullets.get(i);
 			b.update();

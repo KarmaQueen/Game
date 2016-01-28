@@ -38,7 +38,7 @@ public class GameObjectEnemy extends GameObject {
 	@Override
 	public void kill(){
 		super.kill();
-		StateGame.killScore += 1;
+		StateGame.killScore += 2;
 	}
 
 	@Override

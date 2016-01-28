@@ -74,13 +74,8 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 						if(gun.getName().equals("awp")) b.setSize(10);
 						state.spawn(b);
 					}
+					Main.playSound(gun.getName());
 					
-
-					
-
-					//awp users get recoiled
-					if("awp".equals(getGun().getName()))
-						motion.add(Vector.createFromAngle(angle, -4));
 				} else { //shot, but gun is empty
 					if(emptyFlag){
 						emptyFlag = false;
