@@ -8,8 +8,10 @@ public class StateGameOver extends State {
 	
 	private ArrayList<GameObjectButton> buttons;
 	
-	public StateGameOver(int killScore, int timeScore){
+	public StateGameOver(int killScore, int timeScore){	
+		Highscore.readFromFile();
 		Highscore.addScore(killScore, timeScore);
+		Highscore.writeToFile();
 	}
 	
 	@Override
