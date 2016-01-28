@@ -6,6 +6,8 @@ public abstract class State {
 	
 	protected static Random rand;
 	protected State nextState;
+	protected static Main R;
+	public static int WIDTH, HEIGHT;
 
 	public abstract void init();
 	

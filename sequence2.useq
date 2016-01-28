@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true">  
+  <object id="1" language="java" name="isom3320.GameObjectPlayer" project="Game" 
+    file="/Game/src/isom3320/GameObjectPlayer.java" binary="false" label="gameObjectPlayer" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="77" y="0"/>    
+    <execution id="2">      
+      <position height="63" width="149" x="5" y="118"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="63" width="149" x="5" y="303"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="63" width="149" x="5" y="443"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="isom3320.GameObjectGun" project="Game" 
+    file="/Game/src/isom3320/GameObjectGun.java" binary="false" label="gameObjectGun" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="386" y="0"/>    
+    <execution id="4">      
+      <position height="21" width="136" x="158" y="139"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="63" width="136" x="158" y="170"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="63" width="136" x="158" y="272"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="isom3320.GameObjectBullet" project="Game" 
+    file="/Game/src/isom3320/GameObjectBullet.java" binary="false" label="gameObjectBullet" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="621" y="0"/>    
+    <execution id="17">      
+      <position height="21" width="147" x="298" y="293"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="isom3320.Main" project="Game" file="/Game/src/isom3320/Main.java" binary="false" 
+    label="main" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="409" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="56" x="298" y="191"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="21" width="56" x="298" y="324"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="isom3320.GameObjectHUD" project="Game" 
+    file="/Game/src/isom3320/GameObjectHUD.java" binary="false" label="gameObjectHUD" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="469" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="137" x="358" y="464"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="shoot():boolean" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="playSound(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="update():void" asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="13" operation="playSound(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="16" operation="GameObjectBullet(isom3320.Shooter,isom3320.Vector,isom3320.Vector,double,float)" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>
+</sequence-diagram>

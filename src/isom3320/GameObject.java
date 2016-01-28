@@ -77,6 +77,7 @@ public abstract class GameObject {
 	//Setters
 	public GameObject setPos(double x, double y) {
 		pos.setVec(x, y);
+		pPos = pos.clone();
 		return this;
 	}
 	public GameObject setPos(Vector v){
@@ -180,4 +181,5 @@ public abstract class GameObject {
 	public boolean equals(GameObject go){
 		return pos.equals(go.pos);
 	}
+	
 }

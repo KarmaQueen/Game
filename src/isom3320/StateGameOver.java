@@ -1,28 +1,29 @@
 package isom3320;
 
-import java.util.Collections;
+import java.util.ArrayList;
 
 import processing.core.PConstants;
 
 public class StateGameOver extends State {
 	
-	private int yourScore;
+	private ArrayList<GameObjectButton> buttons;
 	
-	public StateGameOver(int score){
-		yourScore = score;
+	public StateGameOver(int killScore, int timeScore){
+		Highscore.addScore(killScore, timeScore);
 	}
 	
 	@Override
 	public void init() {
-		Main.highscores.add(yourScore);
-		Collections.sort(Main.highscores);
-		Collections.reverse(Main.highscores);
 		Main.playSound("victory");
+		buttons = new ArrayList<GameObjectButton>();
+		
+		buttons.add(new GameObjectButton("Play Again?", 30, WIDTH*0.5F, HEIGHT - 50));
+		buttons.add(new GameObjectButton("Back to Menu", 30, WIDTH - 170, HEIGHT - 50));
 	}
 
 	@Override
 	public void deinit() {
-
+		buttons.clear();
 	}
 
 	@Override
@@ -30,6 +31,20 @@ public class StateGameOver extends State {
 		if(GameObject.R.keyPressed)
 			if(GameObject.R.key == ' ')
 				GameObject.R.changeState(new StateGame());
+		
+		for(int i = 0; i < buttons.size(); i++){
+			GameObjectButton b = buttons.get(i);
+			b.update();
+			if(b.isHovered() && R.mousePressed){
+				switch(i){
+				case 0: 
+					R.changeState(new StateGame());
+					break;
+				case 1:
+					R.changeState(new StateMenu());
+				}
+			}
+		}
 	}
 
 	@Override
@@ -41,10 +56,12 @@ public class StateGameOver extends State {
 		GameObject.R.text("Game Over", Main.WIDTH*0.5F, Main.HEIGHT/8);
 		
 		GameObject.R.textSize(60);
-		GameObject.R.text(yourScore, Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150);
+		GameObject.R.text(Highscore.getScore(), Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150);
 		
 		GameObject.R.textSize(20);
-		GameObject.R.text("Your Score:", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 - 60);
+		GameObject.R.text("Your Score:", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 - 70);
+		
+		GameObject.R.text("You survived for " + Highscore.timeScore + " seconds!", Main.WIDTH/4 + 100, Main.HEIGHT/4 + 150 +60);
 		
 		float yval = Main.HEIGHT * 0.25F;
 		
@@ -55,9 +72,9 @@ public class StateGameOver extends State {
 		yval += 40;
 		
 		GameObject.R.textAlign(PConstants.LEFT);
-		for(int i = 0; i < Main.highscores.size(); i++){
-			int score = Main.highscores.get(i);
-			if(yourScore == score) {
+		for(int i = 0; i < Highscore.getNumScores(); i++){
+			int score = Highscore.get(i);
+			if(Highscore.getScore() == score) {
 				GameObject.R.textSize(40);
 				GameObject.R.fill(255, 50, 50);
 				yval += 60;
@@ -70,12 +87,11 @@ public class StateGameOver extends State {
 			
 			String str = (i+1) + ". " + score;
 			GameObject.R.text(str, Main.WIDTH*0.5F + 200, yval);
-			
-			
 		}
 		
-		
-		
+		for(GameObjectButton b : buttons){
+			b.render(framestep);
+		}
 	}
 	
 }

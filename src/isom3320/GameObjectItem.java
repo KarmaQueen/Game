@@ -1,17 +1,23 @@
 package isom3320;
 
+import processing.core.PConstants;
 import processing.core.PImage;
 
 public class GameObjectItem extends GameObject {
-	
+
 	public static String[] effects = new String[]{
-			"maxAmmo","invulnerability","maxHealth", "nuke"
+			"maxAmmo","maxHealth","invulnerability","nuke"
 	};
-	
+	public static float[] probability = new float[]{
+			0.4F,             0.3F,       0.2F,    0.1F
+	};
+
 	private String effect;
 	private static GameObjectPlayer player;
 	private double size;
-	
+
+	private long despawnTimer;
+
 	private PImage img;
 
 	public GameObjectItem(String effect, Vector pos){
@@ -24,12 +30,12 @@ public class GameObjectItem extends GameObject {
 	}
 	public GameObjectItem(Vector pos){
 		super(pos);
-		if(Main.rand.nextBoolean()){
-			effect = effects[Main.rand.nextInt(effects.length)];
+		if(MathHelper.rand.nextBoolean() || MathHelper.rand.nextBoolean()){
+			effect = effects[this.getRandomEffectIndex()];
 			img = R.loadImage(effect + ".png");
 			img.resize((int)size, (int)size);
 		} else {
-			effect = GameObjectGun.name[Main.rand.nextInt(GameObjectGun.name.length)];
+			effect = GameObjectGun.name[MathHelper.rand.nextInt(GameObjectGun.name.length)];
 			img = null;
 		}
 		for(int i = 0; i < GameObjectGun.name.length; i++){
@@ -37,24 +43,30 @@ public class GameObjectItem extends GameObject {
 				color = GameObjectGun.colors[i];
 		}
 	}
-	
+
 	@Override
 	public void init(){
 		size = 40;
+		despawnTimer = System.currentTimeMillis();
 	}
-	
+
 	public static void setPlayer(GameObjectPlayer player){
 		GameObjectItem.player = player;
 	}
-	
+
 	@Override
 	public void update(){
 		if(playerIsNear()){
 			for(int i = 0; i < GameObjectGun.name.length; i++){
-				if(GameObjectGun.name[i].equals(effect) && 
-						!player.getGun().getName().equals(effect)){
-					player.setGun(effect);
-					player.cantShootFor(750L);
+				if(GameObjectGun.name[i].equals(effect)){
+					if(player.getGun().getName().equals(effect)){
+						
+						player.getGun().setAmmo(player.getGun().getMaxAmmo());
+						
+					} else {
+						player.setGun(effect);
+						player.cantShootFor(750L);
+					}
 				}
 			}
 			switch(effect){
@@ -63,6 +75,7 @@ public class GameObjectItem extends GameObject {
 				break;
 			case "maxAmmo": 
 				player.getGun().setAmmo(player.getGun().getMaxAmmo());
+				player.cantShootFor(-10000);
 				break;
 			case "invulnerability":
 				player.cantBeHitFor(5000L);
@@ -75,8 +88,14 @@ public class GameObjectItem extends GameObject {
 			default: break;
 			}
 			Main.playSound(effect);
+			StateGame.killScore += 5;
 			kill();
 		}
+		if(despawnTimer <= System.currentTimeMillis()){
+			damage(0.5F);
+			despawnTimer = System.currentTimeMillis() + 100;
+		}
+		if(health <= 0) kill();
 	}
 
 	private boolean playerIsNear() {
@@ -91,6 +110,24 @@ public class GameObjectItem extends GameObject {
 			R.image(img, getXF() - (float)size*0.5F, getYF() - (float)size*0.5F);
 		else
 			R.ellipse(getXF(), getYF(), (float)size, (float)size);
+
+		R.rectMode(PConstants.CORNER);
+		R.fill(40, 40, 255);
+		R.rect(getXF()-20, getYF()-30, 40, 4);
+		R.fill(100, 100,255);
+		R.rect(getXF()-20, getYF()-30, 40*getHealthRatio(), 4);
+	}
+
+	private int getRandomEffectIndex(){
+		double d = Math.random();
+		double sum = 0;
+
+		for(int i = 0; i < effects.length; i++){
+			sum += probability[i];
+
+			if(d <= sum) return i;
+		}
+		return 0;
 	}
 
 }
