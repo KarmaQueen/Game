@@ -3,16 +3,16 @@ package isom3320;
 import java.util.ArrayList;
 
 public class StateGame extends State{
-	
+
 	private GameObjectPlayer player;
 	//private GameMap map;
 	public ArrayList<GameObject> gameobjects;
 	private ArrayList<GameObjectBullet> bullets;
 	public static int killScore, timeScore;
 	public long invulnerabilityTimer;
-	
+
 	private long gameStartTime;
-	
+
 	private boolean flag;
 
 	public void init(){
@@ -22,14 +22,14 @@ public class StateGame extends State{
 		bullets = new ArrayList<GameObjectBullet>();
 		killScore = timeScore = 0;
 		invulnerabilityTimer = 0;
-		
+
 		//setting player as static targets for other objects
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
 		GameObjectEnemy.player = player;
-		
+
 		gameStartTime = System.currentTimeMillis();
-		
+
 		Main.stopMusic();
 		Main.music("music.wav");
 	}
@@ -44,29 +44,32 @@ public class StateGame extends State{
 	public void update() {
 		timeScore = (int) (System.currentTimeMillis() - gameStartTime)/1000;
 		player.update();
-		
+
 		if(Main.isPressed('m')){
 			if(flag){
-				
+
 				if(Main.musicPlaying){
 					Main.clip.stop();
 					Main.musicPlaying = false;
 				}
-				else
-					Main.music("music.wav");
-				
+				else Main.music("music.wav");
+
 				flag = false;
 			}
 		} else flag = true;
-		
+
 		for(int i = bullets.size() - 1; i >= 0; i--){
 			GameObjectBullet b = bullets.get(i);
 			b.update();
 			for(GameObject go : gameobjects){
+
 				if(b.collidesWith(go)){
+
 					if(!(go instanceof GameObjectEnemy)) continue;
+
 					if(!b.getOrigin().equals(go))
-					go.damage((float) b.getBulletDamage());
+						go.damage((float) b.getBulletDamage());
+					
 					if(!player.getGun().getName().equals("awp"))
 						b.kill();
 				}
@@ -74,7 +77,7 @@ public class StateGame extends State{
 			if(bullets.get(i).isDead())
 				bullets.remove(i);
 		}
-		
+
 		for(int i = gameobjects.size() - 1; i >= 0; i--){
 			GameObject go = gameobjects.get(i);
 			go.update();
@@ -82,18 +85,24 @@ public class StateGame extends State{
 				gameobjects.remove(i);
 			}
 		}
-		
+
+		//Spawn Enemies
 		if(rand.nextInt((120 - (int)(0.0005*(System.currentTimeMillis() - gameStartTime)))) == 0){
-			spawn(new GameObjectEnemy(Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT)), 0).setPos(Vector.random(player.getPos(), 500, 1000)));
+			Vector random = Vector.create(rand.nextInt(Main.WIDTH),rand.nextInt(Main.HEIGHT));
+			spawn(new GameObjectEnemy(random, 0).setPos(Vector.randomWithBounds(player.getPos(), 500, 1000)));
 		}
+
+		//Spawn Items
 		if(rand.nextInt(130) == 0){
-			spawn(new GameObjectItem(Vector.random(player.getPos(), 500, 1000)));
+			spawn(new GameObjectItem(Vector.randomWithBounds(player.getPos(), 50, 1000)));
 		}
+
+		//Game Over
 		if(player.getHealth() <= 0){
 			GameObject.R.changeState(new StateGameOver(killScore, timeScore));
 		}
-		
-		
+
+
 	}
 
 	@Override
@@ -105,10 +114,10 @@ public class StateGame extends State{
 			gob.render(framestep);
 		for(GameObject go : gameobjects)
 			go.render(framestep);
-		
+
 		player.render(framestep);
 	}
-	
+
 	public void spawn(GameObject go){
 		if(go instanceof GameObjectBullet){
 			bullets.add((GameObjectBullet) go);

@@ -2,8 +2,6 @@ package isom3320;
 
 import java.util.Random;
 
-import processing.core.PApplet;
-
 public abstract class State {
 	
 	protected static Random rand;

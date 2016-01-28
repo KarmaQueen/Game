@@ -19,9 +19,6 @@ public class GameObjectGun extends GameObject {
 	private long cantShootFor;
 	
 	protected boolean isShooting; //checks whether gun should be shooting or not
-	private long shootTimer; //used to slow down shots
-	private long rldTimer; //used to disable shooting
-	
 	
 	public GameObjectGun(String s, Shooter user){
 		for(int i = 0; i < name.length; i++){

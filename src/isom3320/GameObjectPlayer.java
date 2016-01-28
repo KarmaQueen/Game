@@ -28,7 +28,7 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		isShooting = false;
 		motionMult = 0.8D; 
 
-		cantShootFor = 0;
+		cantShootFor = cantBeHitUntil = 0;
 		randIncreaser = 4;
 		reloadFlag = false;
 
@@ -182,6 +182,10 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 	@Override
 	public Shooter dontCheck(){
 		return this;
+	}
+	
+	public boolean canBeHit(){
+		return cantBeHitUntil <= System.currentTimeMillis();
 	}
 
 }

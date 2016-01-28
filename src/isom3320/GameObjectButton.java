@@ -25,11 +25,12 @@ public class GameObjectButton extends GameObject{
 	public void update(){
 		super.update();
 		
-		if(isHovered())
+		if(isHovered()){
 			color = Color.create(255, 0, 0);
-		else
+		}
+		else {
 			color = Color.create(255, 255, 255);
-		
+		}
 	}
 
 	@Override

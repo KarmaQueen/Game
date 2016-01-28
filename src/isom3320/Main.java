@@ -150,6 +150,7 @@ public class Main extends PApplet{
 							Main.class.getResourceAsStream("/res/" + url));
 					clip.open(inputStream);
 					clip.start();
+					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
 				}

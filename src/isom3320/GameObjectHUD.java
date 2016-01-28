@@ -44,13 +44,13 @@ public class GameObjectHUD extends GameObject {
 		R.rectMode(0);
 		R.fill(255,255,0);
 		R.rotate((float)(180*MathHelper.toRad));
-		R.rect(-ammo*10, Main.HEIGHT*0.4F, ammo*10, redHealthHeight);
+		R.rect(-(ammo/player.getGun().getMaxAmmo())*300, Main.HEIGHT*0.4F, (ammo/player.getGun().getMaxAmmo())*300, redHealthHeight);
 		
 		R.fill(255,255,255);
 		R.textSize(20);
 		R.text("Score: " + (StateGame.killScore + StateGame.timeScore), (float)(-34), (float)(Main.HEIGHT*0.47));
 		
-		if(ammo > 7)
+		if((ammo/player.getGun().getMaxAmmo()) > 0.3)
 			R.fill(0);
 		else
 			R.fill(255,0,0);
