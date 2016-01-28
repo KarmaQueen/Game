@@ -70,7 +70,6 @@ public class Main extends PApplet{
 
 	public void update(){
 		currentState.update();
-		
 	}
 	public void render(double framestep){
 		background(0);
