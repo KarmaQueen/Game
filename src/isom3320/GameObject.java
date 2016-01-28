@@ -146,7 +146,7 @@ public abstract class GameObject {
 		Vector v2 = go.pos.add(go.motion);
 		double distSq = Vector.getDistanceSq(v, v2);
 		double radiusSq = this.size*this.size + go.size*go.size;
-		return distSq < radiusSq;
+		return distSq <= radiusSq;
 	}
 	
 	//Health methods

@@ -4,8 +4,8 @@ public class GameObjectGun extends GameObject {
 	
 	public static String[] name =     new String[]{"ak47",  "awp","m4a1s", "mag7"};
 	public static float[] damage =     new float[]{    34,   1000,     50,     34};
-	public static long[] delayPerShot = new long[]{   100,   1500,    130,    450};
-	public static double[] speed =    new double[]{    15,     30,     15,     15};
+	public static long[] delayPerShot = new long[]{   100,   1100,    130,    450};
+	public static double[] speed =    new double[]{    15,     20,     15,     15};
 	public static int[] maxAmmo =        new int[]{    40,     10,     20,      7};
 	public static long[] reloadTimer =  new long[]{  1500,   1900,   1500,   1900};
 	public static int[] numBullets =     new int[]{     1,      1,      1,      6};

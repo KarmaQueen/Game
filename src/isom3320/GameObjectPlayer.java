@@ -65,13 +65,15 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 						double randomness = isMoving()? 0 :randIncreaser * MathHelper.toRad;
 						
 						if(gun.getName().equals("mag7")) randomness += 7.5F * MathHelper.toRad;
+						if(gun.getName().equals("awp")) randomness = 0;
 						
 						float damage = getGun().getDamage();
 						GameObjectBullet b = new GameObjectBullet(this, spawnPoint, velocity, randomness, damage);
 						
 						if(gun.getName().equals("mag7")) b.setPos(b.getPos().add(Vector.random(3)));
 						
-						if(gun.getName().equals("awp")) b.setSize(10);
+						if(gun.getName().equals("awp"))
+							b.setSize(10);
 						state.spawn(b);
 					}
 					Main.playSound(gun.getName());
