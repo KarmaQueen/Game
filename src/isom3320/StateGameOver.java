@@ -1,8 +1,12 @@
 package isom3320;
 
+import java.util.ArrayList;
+
 import processing.core.PConstants;
 
 public class StateGameOver extends State {
+	
+	private ArrayList<GameObjectButton> buttons;
 	
 	public StateGameOver(int killScore, int timeScore){
 		Highscore.addScore(killScore, timeScore);
@@ -10,13 +14,16 @@ public class StateGameOver extends State {
 	
 	@Override
 	public void init() {
-		
 		Main.playSound("victory");
+		buttons = new ArrayList<GameObjectButton>();
+		
+		buttons.add(new GameObjectButton("Play Again?", 30, WIDTH*0.5F, HEIGHT - 50));
+		buttons.add(new GameObjectButton("Back to Menu", 30, WIDTH - 170, HEIGHT - 50));
 	}
 
 	@Override
 	public void deinit() {
-
+		buttons.clear();
 	}
 
 	@Override
@@ -24,6 +31,20 @@ public class StateGameOver extends State {
 		if(GameObject.R.keyPressed)
 			if(GameObject.R.key == ' ')
 				GameObject.R.changeState(new StateGame());
+		
+		for(int i = 0; i < buttons.size(); i++){
+			GameObjectButton b = buttons.get(i);
+			b.update();
+			if(b.isHovered() && R.mousePressed){
+				switch(i){
+				case 0: 
+					R.changeState(new StateGame());
+					break;
+				case 1:
+					R.changeState(new StateMenu());
+				}
+			}
+		}
 	}
 
 	@Override
@@ -66,12 +87,11 @@ public class StateGameOver extends State {
 			
 			String str = (i+1) + ". " + score;
 			GameObject.R.text(str, Main.WIDTH*0.5F + 200, yval);
-			
-			
 		}
 		
-		
-		
+		for(GameObjectButton b : buttons){
+			b.render(framestep);
+		}
 	}
 	
 }

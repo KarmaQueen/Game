@@ -181,4 +181,5 @@ public abstract class GameObject {
 	public boolean equals(GameObject go){
 		return pos.equals(go.pos);
 	}
+	
 }

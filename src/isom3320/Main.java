@@ -2,6 +2,8 @@ package isom3320;
 
 import processing.core.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +12,8 @@ import java.util.Random;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Main extends PApplet{
 
@@ -23,8 +27,6 @@ public class Main extends PApplet{
 
 	public static Map<Character, Boolean> inputs;
 
-	public static Random rand;
-
 	public static PFont font;
 	
 	public static Clip clip;
@@ -33,7 +35,7 @@ public class Main extends PApplet{
 	public static void main(String[] args) {
 		WIDTH = 1280;
 		HEIGHT = 800;
-		rand = new Random();
+		MathHelper.rand = new Random();
 
 		PApplet.main(new String[] {"isom3320.Main"});
 	}
@@ -49,8 +51,10 @@ public class Main extends PApplet{
 		changeState(new StateMenu());
 		GameObject.R = this;
 		initInputs();
-		State.rand = rand;
+		State.rand = MathHelper.rand;
 		State.R = this;
+		State.WIDTH = WIDTH;
+		State.HEIGHT = HEIGHT;
 		font = createFont("dimitri.ttf", 300);
 	}
 
@@ -147,9 +151,10 @@ public class Main extends PApplet{
 				try {
 					clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-							Main.class.getResourceAsStream("/res/" + url + ".wav"));
+							Main.class.getResourceAsStream("/res/" + url));
 					clip.open(inputStream);
 					clip.start();
+					
 					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
@@ -162,11 +167,4 @@ public class Main extends PApplet{
 	public static synchronized void stopMusic(){
 		clip.stop();
 	}
-	
-	public static double randomWithRange(double min, double max)
-	{
-	   double range = (max - min);     
-	   return (double)(Math.random() * range) + min;
-	}
-
 }

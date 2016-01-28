@@ -6,10 +6,10 @@ import processing.core.PImage;
 public class GameObjectItem extends GameObject {
 
 	public static String[] effects = new String[]{
-			"maxAmmo","invulnerability","maxHealth", "nuke"
+			"maxAmmo","maxHealth","invulnerability","nuke"
 	};
 	public static float[] probability = new float[]{
-			0.4F,             0.2F,       0.3F,    0.1F
+			0.4F,             0.3F,       0.2F,    0.1F
 	};
 
 	private String effect;
@@ -30,12 +30,12 @@ public class GameObjectItem extends GameObject {
 	}
 	public GameObjectItem(Vector pos){
 		super(pos);
-		if(Main.rand.nextBoolean() || Main.rand.nextBoolean()){
+		if(MathHelper.rand.nextBoolean() || MathHelper.rand.nextBoolean()){
 			effect = effects[this.getRandomEffectIndex()];
 			img = R.loadImage(effect + ".png");
 			img.resize((int)size, (int)size);
 		} else {
-			effect = GameObjectGun.name[Main.rand.nextInt(GameObjectGun.name.length)];
+			effect = GameObjectGun.name[MathHelper.rand.nextInt(GameObjectGun.name.length)];
 			img = null;
 		}
 		for(int i = 0; i < GameObjectGun.name.length; i++){
@@ -88,6 +88,7 @@ public class GameObjectItem extends GameObject {
 			default: break;
 			}
 			Main.playSound(effect);
+			StateGame.killScore += 5;
 			kill();
 		}
 		if(despawnTimer <= System.currentTimeMillis()){

@@ -17,26 +17,21 @@ public class StateGame extends State{
 
 	public void init(){
 		player = new GameObjectPlayer();
+		player.cantShootFor(1000);
 		gameobjects = new ArrayList<GameObject>();
 		bullets = new ArrayList<GameObjectBullet>();
 		killScore = timeScore = 0;
 		invulnerabilityTimer = 0;
-
-		//map = new GameMap(null); //TODO: later change null to something else
+		
+		//setting player as static targets for other objects
 		GameObjectItem.setPlayer(player);
 		GameObject.state = this;
 		GameObjectEnemy.player = player;
 		
-		this.spawn(new GameObjectItem("ak47", Vector.create(1000, 500)));
-		this.spawn(new GameObjectItem("awp", Vector.create(1400, 700)));
-		this.spawn(new GameObjectItem("m4a1s", Vector.create(700, 700)));
-		this.spawn(new GameObjectItem("mag7", Vector.create(400, 700)));
-		
-		//this.spawn(new GameObjectEnemyShooter(Vector.create(300, 300), 180*MathHelper.invPI));
-		
 		gameStartTime = System.currentTimeMillis();
 		
-		Main.music("music");
+		Main.stopMusic();
+		Main.music("music" + (MathHelper.rand.nextInt(4)+1) + ".mp3");
 	}
 
 	@Override
