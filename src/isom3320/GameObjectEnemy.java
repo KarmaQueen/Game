@@ -28,7 +28,7 @@ public class GameObjectEnemy extends GameObject {
 		lookAt(player);
 		motion = motion.add(Vector.createFromAngle(angle, speedB));
 
-		if(collidesWith(player) && cantHitPlayerUntil <= System.currentTimeMillis()){
+		if(collidesWith(player) && cantHitPlayerUntil <= System.currentTimeMillis() && player.canBeHit()){
 			player.damage(20);
 			Main.playSound("hit");
 			cantHitPlayerUntil = System.currentTimeMillis() + 500;
