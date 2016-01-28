@@ -15,7 +15,7 @@ public class Highscore {
 	
 	public static int killScore, timeScore;
 	
-	private static URL url = Main.class.getResource("/data/scores.txt");
+	private static URL url;
 	private static File file;
 
 	public static void addScore(int killScore, int timeScore){
@@ -44,6 +44,7 @@ public class Highscore {
 	
 	public static void readFromFile(){
 		try {
+			url = Main.class.getResource("/data/scores.txt");
 			file = new File(url.getPath());
 			Scanner sc = new Scanner(file);
 			
@@ -54,13 +55,13 @@ public class Highscore {
 			
 		} 
 		catch (FileNotFoundException e) {
-			//TODO: create empty file
 			e.printStackTrace();
 		}
 	}
 	
 	public static void writeToFile(){
 		try {
+			url = Main.class.getResource("/data/scores.txt");
 			file = new File(url.getPath());
 			file.delete();
 			
