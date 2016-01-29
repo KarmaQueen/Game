@@ -37,13 +37,11 @@ public class Highscore {
 	
 	public static void readFromFile(){
 		try {
-			
-			Highscore.scores.clear();
-			
 			URL url = Main.class.getResource("/data/scores.txt");
 			File file = new File(url.getPath());
 			Scanner sc = new Scanner(file);
 			
+			Highscore.scores.clear();
 			while(sc.hasNextLine())
 				Highscore.scores.add(Integer.parseInt(sc.nextLine()));
 			
@@ -51,6 +49,7 @@ public class Highscore {
 			
 		} 
 		catch (FileNotFoundException e) {
+			writeToFile();
 			e.printStackTrace();
 		}
 	}
