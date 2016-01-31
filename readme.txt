@@ -1,11 +1,24 @@
-
-How to Run the Game:
+========= HOW TO RUN THE GAME =========
 1. go to the release folder, and execute the jar file OR the batch file (if on windows)
 2. Enjoy!
 
 
 
-Detailed Instructions on How to Play the Game:
+========= GRADING =========
+
+HTML Page (5%):
+	Please visit http://karmaqueen.github.io/ for our HTML page! (It may take some time to load, please be patient!)
+	
+UML Design (10%) + Design Demonstration (10%):
+	All UML diagrams are all located in the .\diagrams\ folder.
+
+Game (75%):
+	Our Game is located in the .\release\ folder.
+	Our source code is available in the .\src\isom3320\ folder, or online at https://github.com/KarmaQueen/Game/tree/master/src/isom3320
+
+
+
+========= DETAILED GAME INSTRUCTIONS =========
 
 Controls
 	WASD - movement of player
