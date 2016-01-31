@@ -130,7 +130,7 @@ public class Main extends PApplet{
 				try {
 					Clip clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-							Main.class.getResourceAsStream("/res/" + url + ".wav"));
+							Main.class.getResource("/res/" + url + ".wav"));
 					clip.open(inputStream);
 					clip.start();
 				} catch (Exception e) {
@@ -146,12 +146,13 @@ public class Main extends PApplet{
 				try {
 					clip = AudioSystem.getClip();
 					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-							Main.class.getResourceAsStream("/res/" + url));
+							Main.class.getResource("/res/" + url));
 					clip.open(inputStream);
 					clip.start();
 					clip.loop(Clip.LOOP_CONTINUOUSLY);
 				} catch (Exception e) {
 					System.out.println("Can't find " + url + "!");
+					System.out.println("Full URL: " + Main.class.getResource("/res/" + url));
 				}
 			}
 		}).start();
