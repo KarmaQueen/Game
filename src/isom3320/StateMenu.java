@@ -17,6 +17,7 @@ public class StateMenu extends State {
 		buttons = new ArrayList<GameObjectButton>();
 		buttons.add(new GameObjectButton("Start", 50, Vector.create(Main.WIDTH*0.5F, Main.HEIGHT*0.5F)));
 		buttons.add(new GameObjectButton("How to Play", 50, Vector.create(Main.WIDTH*0.5F, Main.HEIGHT*0.5F + 125)));
+		buttons.add(new GameObjectButton("Exit", 50, Vector.create(Main.WIDTH*0.5F, Main.HEIGHT*0.5F + 125*2)));
 	}
 
 	@Override
@@ -41,6 +42,9 @@ public class StateMenu extends State {
 					break;
 				case 1:
 					R.changeState(new StateHowToPlay());
+					break;
+				case 2:
+					System.exit(1);
 				}
 			}
 		}
@@ -56,10 +60,10 @@ public class StateMenu extends State {
 		
 		R.textSize(30);
 		R.fill(255);
-		R.text("Press Space To Start", WIDTH*0.5F, HEIGHT - 100);
+		R.text("Press Space To Start", WIDTH*0.5F, HEIGHT - 70);
 		
 		R.textSize(15);
-		R.text("Project Group 13", WIDTH*0.5F, HEIGHT - 50);
+		R.text("Project Group 13", WIDTH*0.5F, HEIGHT - 30);
 		
 		for(GameObjectButton b : buttons){
 			b.render(framestep);

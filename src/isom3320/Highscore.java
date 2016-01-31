@@ -75,7 +75,7 @@ public class Highscore {
 			
 			pw.close();
 			
-		} 
+		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

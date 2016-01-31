@@ -29,7 +29,7 @@ public class GameObjectButton extends GameObject{
 			color = Color.create(255, 0, 0);
 		}
 		else {
-			color = Color.create(255, 255, 255);
+			color = Color.create(255, 200, 100);
 		}
 	}
 
