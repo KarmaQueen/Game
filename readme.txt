@@ -1,5 +1,5 @@
 ========= HOW TO RUN THE GAME =========
-1. go to the release folder, and execute the jar file OR the batch file (if on windows)
+1. go to the .\release\ folder, and execute the jar file OR the batch file (if on windows)
 2. Enjoy!
 
 
@@ -30,13 +30,13 @@ Controls
 	
 Weapons:
 AK-47
-	This assault rifle will eliminate the enemy in 3 shots. Having a lower damage compared to the M4, the AK-47 will make it for it by having double the magazine size.
+	This assault rifle will eliminate the enemy in 3 shots. Having a lower damage compared to the M4A1-S, the AK-47 will make it for it by having double the magazine size.
 AWP
 	This sniper rifle is the only gun in the game that kills every enemy with one shot. However, it is very slow to shoot, taking more than a second to shoot the next bullet.
 M4A1-S
 	This silenced rifle will kill an enemy in two shots, but has a limited magazine capacity.
 MAG-7
-	The MAG-7 is a shotgun that deals a moderate amount of damage. It has a much higher spread than the other guns 
+	The MAG-7 is a shotgun that deals a moderate amount of damage. It has a much higher spread than the other guns.
 	
 	
 Items:
