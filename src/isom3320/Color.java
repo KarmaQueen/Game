@@ -1,12 +1,9 @@
 package isom3320;
 
 public class Color {
-	
-	public static Color create(int r, int g, int b){
-		return new Color(r,g,b);
-	}
-	
+
 	private int[] color;
+
 	public Color(int r, int g, int b){
 		color = new int[3];
 		color[0] = r;
@@ -16,5 +13,9 @@ public class Color {
 	
 	public int[] getColorArr(){
 		return color.clone();
+	}
+
+	public static Color create(int r, int g, int b){
+		return new Color(r,g,b);
 	}
 }

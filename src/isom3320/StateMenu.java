@@ -27,8 +27,7 @@ public class StateMenu extends State {
 
 	@Override
 	public void update() {
-		if(R.keyPressed){
-			if(R.key == ' ')
+		if(R.keyPressed && R.key == ' '){
 				R.changeState(new StateGame());
 		}
 		
@@ -44,7 +43,10 @@ public class StateMenu extends State {
 					R.changeState(new StateHowToPlay());
 					break;
 				case 2:
-					System.exit(1);
+					R.exit();
+					break;
+				default:
+					break;
 				}
 			}
 		}

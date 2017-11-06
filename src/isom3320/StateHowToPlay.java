@@ -36,7 +36,7 @@ public class StateHowToPlay extends State {
 
 	@Override
 	public void deinit() {
-		
+
 	}
 
 	@Override
@@ -45,11 +45,7 @@ public class StateHowToPlay extends State {
 			GameObjectButton b = buttons.get(i);
 			b.update();
 			if(b.isHovered() && R.mousePressed){
-				switch(i){
-				case 0: 
-					R.changeState(new StateMenu());
-					break;
-				}
+				if(i == 0) R.changeState(new StateMenu());
 			}
 		}
 		

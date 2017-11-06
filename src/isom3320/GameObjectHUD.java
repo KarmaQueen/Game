@@ -29,7 +29,6 @@ public class GameObjectHUD extends GameObject {
 		super.update();
 		calculateHealth();
 		calculateAmmo();
-		calculateScore();
 	}
 
 	@Override
@@ -68,8 +67,5 @@ public class GameObjectHUD extends GameObject {
 	public void calculateAmmo(){
 		ammo = player.getGun().getCurrentAmmo();
 	}
-	
-	public void calculateScore(){
-		
-	}
+
 }

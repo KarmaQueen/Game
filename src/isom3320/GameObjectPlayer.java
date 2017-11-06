@@ -50,11 +50,12 @@ public class GameObjectPlayer extends GameObject implements Shooter{
 		gun.setAngle(angle);
 
 		isShooting = R.mousePressed;
+
 		if(!canShoot()){
 			isShooting = false;
 		}
 
-		if(R.mousePressed){
+		if(isShooting){
 			if(canShoot()){
 				if(gun.shoot()){
 

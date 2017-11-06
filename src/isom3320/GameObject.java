@@ -42,7 +42,7 @@ public abstract class GameObject {
 		init();
 	}
 	
-	public void init(){}
+	public abstract void init();
 
 	public void update() {
 		//Update Motion and Position
@@ -70,7 +70,8 @@ public abstract class GameObject {
 		return getPartialPos(vec.getX(), vec.getY(), pVec.getX(), pVec.getY(), framestep);
 	}
 	protected Vector getPartialPos(double x, double y, double px, double py, double framestep) {
-		double dx = x - px, dy = y - py;
+		double dx = x - px,
+				dy = y - py;
 		return new Vector(px + dx * framestep, py + dy * framestep);
 	}
 

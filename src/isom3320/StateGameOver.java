@@ -30,21 +30,14 @@ public class StateGameOver extends State {
 
 	@Override
 	public void update() {
-		if(GameObject.R.keyPressed)
-			if(GameObject.R.key == ' ')
+		if(GameObject.R.keyPressed && GameObject.R.key == ' ')
 				GameObject.R.changeState(new StateGame());
 		
 		for(int i = 0; i < buttons.size(); i++){
 			GameObjectButton b = buttons.get(i);
 			b.update();
 			if(b.isHovered() && R.mousePressed){
-				switch(i){
-				case 0: 
-					R.changeState(new StateGame());
-					break;
-				case 1:
-					R.changeState(new StateMenu());
-				}
+				R.changeState(i == 0? new StateGame() : new StateMenu());
 			}
 		}
 	}
