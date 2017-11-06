@@ -2,6 +2,9 @@ package isom3320;
 
 public class Vector {
 
+	//Class Definition
+	private double xCoord, yCoord;
+
 	//Static Methods
 	public static final Vector ZERO = new Vector(0,0);
 	public static Vector create(double x, double y) {
@@ -30,9 +33,6 @@ public class Vector {
 	public static Vector randomWithBounds(Vector pos, double innerBound, double outerBound){
 		return Vector.createFromAngle(2*Math.PI*Math.random(), MathHelper.randomWithRange(innerBound, outerBound)).add(pos);
 	}
-
-	//Class Definition
-	private double xCoord, yCoord;
 
 	//Constructors
 	public Vector() {

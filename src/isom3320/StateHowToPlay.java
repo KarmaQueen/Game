@@ -36,7 +36,11 @@ public class StateHowToPlay extends State {
 
 	@Override
 	public void deinit() {
-
+		imgs = null;
+		controls = null;
+		score = null;
+		enemy = null;
+		buttons = null;
 	}
 
 	@Override
@@ -44,11 +48,9 @@ public class StateHowToPlay extends State {
 		for(int i = 0; i < buttons.size(); i++){
 			GameObjectButton b = buttons.get(i);
 			b.update();
-			if(b.isHovered() && R.mousePressed){
-				if(i == 0) R.changeState(new StateMenu());
-			}
+			if(b.isHovered() && R.mousePressed && i == 0)
+				R.changeState(new StateMenu());
 		}
-		
 	}
 
 	@Override

@@ -38,7 +38,8 @@ public class GameObjectGun extends GameObject {
 		
 	}
 	
-	
+	@Override
+	public void init(){}
 
 	@Override
 	public void render(double framestep) {
@@ -60,6 +61,8 @@ public class GameObjectGun extends GameObject {
 			break;
 		case "mag7":
 			R.rect(15, 5, 25, 6);
+			break;
+		default:
 			break;
 		}	
 	}
