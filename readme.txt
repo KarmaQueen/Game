@@ -11,11 +11,11 @@ HTML Page (5%):
 	(It may take some time to load, please be patient!)
 	
 UML Design (10%) + Design Demonstration (10%):
-	All UML diagrams are all located in the .\diagrams\ folder.
+	All UML diagrams are all located in the ./diagrams/ folder.
 
 Game (75%):
-	Our Game is located in the .\release\ folder.
-	Our source code is available in the .\src\isom3320\ folder, or online at 
+	Our Game is located in the ./release/ folder.
+	Our source code is available in the ./src/isom3320/ folder, or online at 
 	https://github.com/KarmaQueen/Game/tree/master/src/isom3320
 
 
@@ -34,14 +34,15 @@ Weapons:
 AK-47
 	This assault rifle will eliminate the enemy in 3 shots. 
 	Having a lower damage compared to the M4A1-S, 
-	the AK-47 will make it for it by having double the magazine size.
+	the AK-47 will make up for it by having double the magazine size.
 AWP
-	This sniper rifle is the only gun in the game that kills every enemy with one shot.
+	This sniper rifle will pierce through enemies to kill multiple enemies with a single bullet.
 	However, it is very slow to shoot, taking more than a second to shoot the next bullet.
 M4A1-S
 	This silenced rifle will kill an enemy in two shots, but has a limited magazine capacity.
 MAG-7
-	The MAG-7 is a shotgun that deals a moderate amount of damage. 
+	The MAG-7 is a shotgun that deals a moderate amount of damage.
+	It shoots multiple bullets with one shot.
 	It has a much higher spread than the other guns.
 	
 	
