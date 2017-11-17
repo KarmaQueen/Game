@@ -7,7 +7,7 @@
 ========= GRADING =========
 
 HTML Page (5%):
-	Please visit http://karmaqueen.github.io/ for our HTML page! (It may take some time to load, please be patient!)
+	Please visit http://karmaqueen.github.io/isom3320/ for our HTML page! (It may take some time to load, please be patient!)
 	
 UML Design (10%) + Design Demonstration (10%):
 	All UML diagrams are all located in the .\diagrams\ folder.
